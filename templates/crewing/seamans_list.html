@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Список моряков
+{% endblock %}
+
+{% block content %}
+  <h3>Список моряков</h3>
+
+  <a href="{% url 'seaman_add' %}" class="btn btn-outline-success mb-2">
+    <span class="icon icon-user-add"></span>
+    Добавить моряка</a>
+  
+  <table class="table table-sm">
+    <thead>
+    <tr>
+      <th></th>
+      <th>Ф.И.О.</th>
+      <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for seaman in seamans %}
+
+      <tr>
+        <td>
+          <a href=""><span class="icon icon-pencil"></span></a>
+        </td>
+        <td>{{ seaman.last_name }} {{ seaman.first_name }}</td>
+        <td></td>
+      </tr>
+
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

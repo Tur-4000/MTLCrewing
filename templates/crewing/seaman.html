@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+  Добавление моряка
+{% endblock %}
+
+{% block content %}
+
+  <div class="container col-8">
+    <h1>Добавить моряка</h1>
+
+    <form action="" method="post" class="">
+      {% csrf_token %}
+
+      {{ form|crispy }}
+
+      <a href="{% url 'seamans_list' %}" class="btn btn-primary"><span class="icon icon-reply"></span> Назад</a>
+      <button type="submit" class="btn btn-success"><span class="icon icon-floppy"></span> Добавить</button>
+    </form>
+  </div>
+
+{% endblock %}
