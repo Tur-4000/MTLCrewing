@@ -24,9 +24,13 @@
 
       <tr>
         <td>
-          <a href=""><span class="icon icon-pencil"></span></a>
+          <a href="{% url 'seaman_edit' seaman.id %}"><span class="icon icon-pencil"></span></a>
         </td>
-        <td>{{ seaman.last_name }} {{ seaman.first_name }}</td>
+        <td>
+          <a href="{% url 'seamancard' seaman.id %}">
+            {{ seaman.last_name }} {{ seaman.first_name }}
+          </a>
+        </td>
         <td></td>
       </tr>
 

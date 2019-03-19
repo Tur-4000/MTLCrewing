@@ -5,5 +5,77 @@
 {% endblock %}
 
 {% block content %}
-  Моряк
+
+  <div class="container">
+  <div class="col-md-12">
+    <div class="page-header">
+      <h1>Личное дело {{ seaman.last_name }} {{ seaman.first_name }}</h1>
+    </div>
+
+    <ul class="nav nav-tabs nav-justified" id="myTabs">
+      <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Иванов</a></li>
+      <li role="presentation"><a href="#opinion" aria-controls="profile" role="tab" data-toggle="tab">Отзывы</a></li>
+      <li role="presentation"><a href="#360" aria-controls="profile" role="tab" data-toggle="tab">360&deg;</a></li>
+    </ul>
+
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="home">
+                      <br>
+                      <div class="media">
+                          <div class="media-left">
+                              <img class="media-object" src="" alt="">
+                          </div>
+                          <div class="media-body">
+                              <div class="row">
+                                  <div class="col-md-3 col-md-offset-1">
+                                      <p>RU</p>
+                                      <h3>{{ seaman.last_name }} {{ seaman.first_name }}</h3>
+                                  </div>
+                                  <div class="col-md-3">
+                                      <p>EN</p>
+                                      <h3>Ivan Ivanov</h3>
+                                  </div>
+                                  <div class="col-md-3">
+                                      <p>UA</p>
+                                      <h3>Iванов Iван</h3>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+      <div role="tabpanel" class="tab-pane" id="opinion">
+          <br>
+          <p><a href="" class="btn btn-primary"><span class="icon icon-plus" aria-hidden="true"></span> Добавить отзыв</a></p>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              25/03/2018 | Старший помощник Лом | Контракт №1
+            </div>
+            <div class="panel-body">
+              Отличный парень. Лопни моя селезёнка!
+            </div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+                20/03/2018 | Костя | Контракт №1
+            </div>
+            <div class="panel-body">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae perspiciatis earum sint nisi soluta, numquam provident, pariatur deleniti mollitia quod.
+            </div>
+          </div>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="360"></div>
+    </div>
+  </div>
+  </div>
+
+{% endblock %}
+
+{% block scripts %}
+  {{ block.super }}
+  <script>
+    $('#myTabs a').click(function (e) {
+      e.preventDefault()
+      $(this).tab('show')
+    })
+  </script>
 {% endblock %}
