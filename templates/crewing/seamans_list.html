@@ -15,7 +15,7 @@
     <thead>
     <tr>
       <th></th>
-      <th>Ф.И.О.</th>
+      <th>Ф.И.О. (EN, RU, UA)</th>
       <th></th>
     </tr>
     </thead>
@@ -28,7 +28,9 @@
         </td>
         <td>
           <a href="{% url 'seamancard' seaman.id %}">
-            {{ seaman.last_name }} {{ seaman.first_name }}
+            {{ seaman.last_name_en }} {{ seaman.first_name_en }}<br>
+            {{ seaman.last_name_ru }} {{ seaman.first_name_ru }}<br>
+            {{ seaman.last_name_ua }} {{ seaman.first_name_ua }}
           </a>
         </td>
         <td></td>
