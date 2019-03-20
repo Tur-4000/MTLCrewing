@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .models import Seamans, Ranks, Vessels, Contracts, Opinions
-from .forms import SeamanForm, RankForm
+from .forms import SeamanForm, RankForm, VesselForm
 
 
 def seamans_list(request):
@@ -85,3 +85,43 @@ def rank_edit(request, rank_id):
         form = RankForm(instance=rank)
         return render(request, 'crewing/rank.html',
                       {'title': title, 'form': form, 'rank': rank})
+
+
+def vessels_list(request):
+    title = 'Справочник судов'
+    vessels = Vessels.objects.all()
+    return render(request, 'crewing/vessels_list.html',
+                  {'title': title, 'vessels': vessels})
+
+
+def vessel_add(request):
+    title = 'Добавить судно'
+    form = VesselForm()
+    if request.method == 'POST':
+        form = VesselForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('vessels_list')
+        else:
+            return render(request, 'crewing/vessel.html',
+                          {'title': title, 'form': form})
+    else:
+        return render(request, 'crewing/vessel.html',
+                      {'title': title, 'form': form})
+
+
+def vessel_edit(request, vessel_id):
+    title = 'Редактировать судно'
+    vessel = get_object_or_404(Vessels, id=vessel_id)
+    if request.method == 'POST':
+        form = VesselForm(request.POST, instance=vessel)
+        if form.is_valid():
+            form.save()
+            return redirect('vessels_list')
+        else:
+            return render(request, 'crewing/vessel.html',
+                          {'title': title, 'form': form, 'vessel': vessel})
+    else:
+        form = VesselForm(instance=vessel)
+        return render(request, 'crewing/vessel.html',
+                      {'title': title, 'form': form, 'vessel': vessel})

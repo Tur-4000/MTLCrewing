@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ title }}
+{% endblock %}
+
+{% block content %}
+  <h3>{{ title }}</h3>
+
+  <a href="{% url 'vessel_add' %}" class="btn btn-sm btn-outline-success mb-2">
+    <span class="icon icon-user-add"></span>
+    Добавить судно</a>
+
+  <table class="table table-sm">
+    <thead>
+    <tr>
+      <th></th>
+      <th>Название судна</th>
+      <th>Тип судна</th>
+      <th>DWT</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for vessel in vessels %}
+
+      <tr>
+        <td>
+          <a href="{% url 'vessel_edit' vessel.id %}"><span class="icon icon-pencil"></span></a>
+        </td>
+        <td>
+            {{ vessel.vessel_name }}
+        </td>
+        <td>
+            {{ vessel.vessel_type }}
+        </td>
+        <td>
+            {{ vessel.dwt }}
+        </td>
+      </tr>
+
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
