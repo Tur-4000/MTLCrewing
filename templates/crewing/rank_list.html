@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ title }}
+{% endblock %}
+
+{% block content %}
+  <h3>{{ title }}</h3>
+
+  <a href="{% url 'rank_add' %}" class="btn btn-sm btn-outline-success mb-2">
+    <span class="icon icon-user-add"></span>
+    Добавить должность</a>
+
+  <table class="table table-sm">
+    <thead>
+    <tr>
+      <th></th>
+      <th>Название должности</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for rank in ranks %}
+
+      <tr>
+        <td>
+          <a href="{% url 'rank_edit' rank.id %}"><span class="icon icon-pencil"></span></a>
+        </td>
+        <td>
+            {{ rank.rank_title }}
+        </td>
+        <td></td>
+      </tr>
+
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

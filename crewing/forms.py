@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Seamans
+from .models import Seamans, Ranks
 
 
 class SeamanForm(forms.ModelForm):
@@ -17,4 +17,14 @@ class SeamanForm(forms.ModelForm):
             'first_name_ru': forms.TextInput(),
             'last_name_ua': forms.TextInput(),
             'first_name_ua': forms.TextInput(),
+        }
+
+
+class RankForm(forms.ModelForm):
+
+    class Meta:
+        model = Ranks
+        fields = ('rank_title',)
+        widgets = {
+            'rank_title': forms.TextInput(),
         }
