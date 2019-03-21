@@ -149,6 +149,26 @@ def opinion_add(request, seaman_id):
                       {'title': title, 'form': form, 'seaman': seaman})
 
 
+def opinion_edit(request, seaman_id, opinion_id):
+    title = 'Редактировать отзыв'
+    seaman = get_object_or_404(Opinions, id=seaman_id)
+    opinion = get_object_or_404(Opinions, id=opinion_id)
+    if request.method == 'POST':
+        form = OpinionForm(request.POST, instance=opinion)
+        if form.is_valid():
+            form.save()
+            return redirect('seamancard', seaman.id)
+        else:
+            render(request, 'crewing/opinion.html',
+                   {'title': title, 'form': form,
+                    'opinion': opinion, 'seaman': seaman})
+    else:
+        form = OpinionForm(instance=opinion)
+        return render(request, 'crewing/opinion.html',
+                      {'title': title, 'form': form,
+                       'opinion': opinion, 'seaman': seaman})
+
+
 def contract_add(request, seaman_id):
     title = 'Добавить контракт'
     seaman = get_object_or_404(Seamans, id=seaman_id)

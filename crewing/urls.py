@@ -9,6 +9,7 @@ urlpatterns = [
     path('seaman/add/', views.seaman_add, name='seaman_add'),
     path('seaman/edit/<int:seaman_id>/', views.seaman_edit, name='seaman_edit'),
     path('seaman/<int:seaman_id>/opinion/add/', views.opinion_add, name='opinion_add'),
+    path('seaman/<int:seaman_id>/opinion/edit/<int:opinion_id>/', views.opinion_edit, name='opinion_edit'),
     path('seaman/<int:seaman_id>/contract/add/', views.contract_add, name='contract_add'),
     path('rank/list/', views.rank_list, name='rank_list'),
     path('rank/add/', views.rank_add, name='rank_add'),

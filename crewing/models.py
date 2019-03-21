@@ -108,7 +108,7 @@ class Opinions(models.Model):
     class Meta:
         verbose_name = 'Отзыв'
         verbose_name_plural = 'отзывы'
-        ordering = ['date']
+        ordering = ['-date']
 
     def __str__(self):
         return f'{self.author}: {self.opinion_text}'

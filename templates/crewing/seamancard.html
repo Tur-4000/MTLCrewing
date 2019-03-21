@@ -95,6 +95,10 @@
               <div class="card-body">
                 {{ opinion.opinion_text }}
               </div>
+              <div class="card-footer">
+                <a href="{% url 'opinion_edit' seaman.id opinion.id %}" class="float-right">
+                  <span class="icon icon-pencil"></span> Редактировать</a>
+              </div>
             </div>
           {% endfor %}
     </div>
