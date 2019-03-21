@@ -25,7 +25,7 @@
 
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
 
-      <ul class="navbar-nav">
+      <ul class="navbar-nav mr-auto">
         <li class="nav-item">
           <a class="nav-link btn btn-outline-mig" href="{% url 'seamans_list' %}">
             <span class="icon icon-users"></span>
@@ -33,13 +33,13 @@
         </li>
       </ul>
 
-      <ul class="navbar-nav ml-3">
+      <ul class="navbar-nav">
         <div class="nav-item dropdown">
           <a class="nav-link dropdown-toggle btn btn-outline-mig" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="fas fa-book"></i>
             Справочники
           </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="{% url 'rank_list' %}">Справочник должностей</a>
             <a class="dropdown-item" href="{% url 'vessels_list' %}">Справочник судов</a>
             <a class="dropdown-item" href="#">Справочник 3</a>
