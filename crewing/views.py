@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
 from .models import Seamans, Ranks, Vessels, Contracts, Opinions
-from .forms import SeamanForm, RankForm, VesselForm
+from .forms import SeamanForm, RankForm, VesselForm, OpinionForm, ContractForm
 
 
 def seamans_list(request):
@@ -11,7 +11,10 @@ def seamans_list(request):
 
 def seamancard(request, seaman_id):
     seaman = get_object_or_404(Seamans, id=seaman_id)
-    return render(request, 'crewing/seamancard.html', {'seaman': seaman})
+    contracts = Contracts.objects.filter(seaman=seaman_id).all()
+    opinions = Opinions.objects.filter(seaman=seaman_id).all()
+    return render(request, 'crewing/seamancard.html',
+                  {'seaman': seaman, 'contracts': contracts, 'opinions': opinions})
 
 
 def seaman_add(request):
@@ -96,7 +99,6 @@ def vessels_list(request):
 
 def vessel_add(request):
     title = 'Добавить судно'
-    form = VesselForm()
     if request.method == 'POST':
         form = VesselForm(request.POST)
         if form.is_valid():
@@ -106,6 +108,7 @@ def vessel_add(request):
             return render(request, 'crewing/vessel.html',
                           {'title': title, 'form': form})
     else:
+        form = VesselForm()
         return render(request, 'crewing/vessel.html',
                       {'title': title, 'form': form})
 
@@ -125,3 +128,41 @@ def vessel_edit(request, vessel_id):
         form = VesselForm(instance=vessel)
         return render(request, 'crewing/vessel.html',
                       {'title': title, 'form': form, 'vessel': vessel})
+
+
+def opinion_add(request, seaman_id):
+    title = 'Добавить отзыв'
+    seaman = get_object_or_404(Seamans, id=seaman_id)
+    if request.method == 'POST':
+        form = OpinionForm(request.POST)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.seaman = seaman
+            obj.save()
+            return redirect('seamancard', seaman_id)
+        else:
+            return render(request, 'crewing/opinion.html',
+                          {'title': title, 'form': form, 'seaman': seaman})
+    else:
+        form = OpinionForm()
+        return render(request, 'crewing/opinion.html',
+                      {'title': title, 'form': form, 'seaman': seaman})
+
+
+def contract_add(request, seaman_id):
+    title = 'Добавить контракт'
+    seaman = get_object_or_404(Seamans, id=seaman_id)
+    if request.method == 'POST':
+        form = ContractForm(request.POST)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.seaman = seaman
+            obj.save()
+            return redirect('seamancard', seaman_id)
+        else:
+            return render(request, 'crewing/contract.html',
+                  {'title': title, 'form': form, 'seaman': seaman})
+    else:
+        form = ContractForm()
+        return render(request, 'crewing/contract.html',
+                      {'title': title, 'form': form, 'seaman': seaman})

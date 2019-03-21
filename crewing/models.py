@@ -88,7 +88,7 @@ class Contracts(models.Model):
         verbose_name_plural = 'Контракты'
 
     def __str__(self):
-        return f'{self.seaman}: {self.vessel} {self.sign_in_date}-{self.sign_off_date}'
+        return f'{self.vessel} {self.sign_in_date}/{self.sign_off_date}'
 
 
 class Opinions(models.Model):
@@ -108,6 +108,7 @@ class Opinions(models.Model):
     class Meta:
         verbose_name = 'Отзыв'
         verbose_name_plural = 'отзывы'
+        ordering = ['date']
 
     def __str__(self):
         return f'{self.author}: {self.opinion_text}'

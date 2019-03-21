@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Seamans, Ranks, Vessels
+from .models import Seamans, Ranks, Vessels, Opinions, Contracts
 
 
 class SeamanForm(forms.ModelForm):
@@ -39,4 +39,30 @@ class VesselForm(forms.ModelForm):
             'vessel_name': forms.TextInput(),
             'vessel_type': forms.TextInput(),
             'dwt': forms.NumberInput,
+        }
+
+
+class OpinionForm(forms.ModelForm):
+
+    class Meta:
+        model = Opinions
+        fields = ('date', 'contract', 'author', 'opinion_text')
+        widgets = {
+            'date': forms.DateInput(attrs={'type': 'date'}),
+            'contract': forms.Select(),
+            'author': forms.TextInput(),
+            'opinion_text': forms.Textarea(attrs={'rows': 3})
+        }
+
+
+class ContractForm(forms.ModelForm):
+
+    class Meta:
+        model = Contracts
+        fields = ('vessel', 'rank', 'sign_in_date', 'sign_off_date')
+        widgets = {
+            'vessel': forms.Select(),
+            'rank': forms.Select(),
+            'sign_in_date': forms.DateInput(attrs={'type': 'date'}),
+            'sign_off_date': forms.DateInput(attrs={'type': 'date'})
         }
