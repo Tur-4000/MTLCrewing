@@ -17,5 +17,7 @@ urlpatterns = [
     path('vessel/list/', views.vessels_list, name='vessels_list'),
     path('vessel/add/', views.vessel_add, name='vessel_add'),
     path('vessel/edit/<int:vessel_id>/', views.vessel_edit, name='vessel_edit'),
+    path('seamans_questions/list/', views.seamans_questions_list, name='seamans_questions_list'),
+    path('seamans_question/add/', views.seamans_questions_add, name='seamans_question_add'),
 
 ]

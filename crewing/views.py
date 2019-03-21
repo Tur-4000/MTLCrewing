@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .models import Seamans, Ranks, Vessels, Contracts, Opinions
-from .forms import SeamanForm, RankForm, VesselForm, OpinionForm, ContractForm
+from .models import Seamans, Ranks, Vessels, Contracts, Opinions,\
+    Seaman360Question
+from .forms import SeamanForm, RankForm, VesselForm, OpinionForm, ContractForm,\
+    Seaman360QuestionForm
 
 
 def seamans_list(request):
@@ -186,3 +188,26 @@ def contract_add(request, seaman_id):
         form = ContractForm()
         return render(request, 'crewing/contract.html',
                       {'title': title, 'form': form, 'seaman': seaman})
+
+
+def seamans_questions_list(request):
+    title = 'Вопросы рейтинга 360 (моряки)'
+    questions = Seaman360Question.objects.all()
+    return render(request, 'crewing/rating_seaman.html',
+                  {'title': title, 'questions': questions})
+
+
+def seamans_questions_add(request):
+    title = 'Добавить вопрос рейтинга 360 (моряки)'
+    if request.method == 'POST':
+        form = Seaman360QuestionForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('seamans_questions_list')
+        else:
+            return render(request, 'crewing/question.html',
+                          {'title': title, 'form': form})
+    else:
+        form = Seaman360QuestionForm()
+        return render(request, 'crewing/question.html',
+                      {'title': title, 'form': form})

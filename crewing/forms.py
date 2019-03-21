@@ -1,6 +1,7 @@
 from django import forms
 
-from .models import Seamans, Ranks, Vessels, Opinions, Contracts
+from .models import Seamans, Ranks, Vessels, Opinions, Contracts, \
+    Seaman360Question
 
 
 class SeamanForm(forms.ModelForm):
@@ -48,7 +49,7 @@ class OpinionForm(forms.ModelForm):
         model = Opinions
         fields = ('date', 'contract', 'author', 'opinion_text')
         widgets = {
-            'date': forms.DateInput(attrs={'type': 'date'}),
+            'date': forms.TextInput(attrs={'class': 'span2', 'id': 'dp1'}),
             'contract': forms.Select(),
             'author': forms.TextInput(),
             'opinion_text': forms.Textarea(attrs={'rows': 3})
@@ -65,4 +66,16 @@ class ContractForm(forms.ModelForm):
             'rank': forms.Select(),
             'sign_in_date': forms.DateInput(attrs={'type': 'date'}),
             'sign_off_date': forms.DateInput(attrs={'type': 'date'})
+        }
+
+
+class Seaman360QuestionForm(forms.ModelForm):
+
+    class Meta:
+        model = Seaman360Question
+        fields = ('question', 'rank', 'ability')
+        widgets = {
+            'question': forms.TextInput(),
+            'rank': forms.CheckboxSelectMultiple(),
+            'ability': forms.Select()
         }

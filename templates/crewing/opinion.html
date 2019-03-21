@@ -23,3 +23,13 @@
   </div>
 
 {% endblock %}
+
+{% block scripts %}
+  {{ block.super }}
+  <script>
+    pickmeup('#dp1', {
+      format	: 'Y-m-d',
+      default_date: false,
+    });
+  </script>
+{% endblock %}

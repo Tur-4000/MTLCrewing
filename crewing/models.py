@@ -112,3 +112,35 @@ class Opinions(models.Model):
 
     def __str__(self):
         return f'{self.author}: {self.opinion_text}'
+
+
+class Seaman360Ability(models.Model):
+    ability = models.CharField(max_length=32,
+                               db_index=True,
+                               blank=False,
+                               verbose_name='Компетенция')
+
+    class Meta:
+        verbose_name = 'Компетенция'
+        verbose_name_plural = 'Компетенции'
+
+    def __str__(self):
+        return f'{self.ability}'
+
+
+class Seaman360Question(models.Model):
+    question = models.CharField(max_length=128,
+                                db_index=True,
+                                blank=False,
+                                verbose_name='Вопрос')
+    rank = models.ManyToManyField(Ranks, verbose_name='Должность')
+    ability = models.ForeignKey(Seaman360Ability,
+                                on_delete=models.CASCADE,
+                                verbose_name='Компетенция')
+
+    class Meta:
+        verbose_name = 'Вопрос'
+        verbose_name_plural = 'Вопросы'
+
+    def __str__(self):
+        return f'{self.question}'

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  {{ title }}
+{% endblock %}
+
+{% block content %}
+  <h3>{{ title }}</h3>
+
+  <a href="{% url 'seamans_question_add' %}" class="btn btn-sm btn-outline-success mb-2">
+    <span class="icon icon-user-add"></span>
+    Добавить вопрос</a>
+
+  <table class="table table-sm">
+    <thead>
+    <tr>
+      <th></th>
+      <th>Компетенция</th>
+      <th>Вопрос</th>
+      <th>Должность</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for question in questions %}
+
+      <tr>
+        <td>
+          <a href=""><span class="icon icon-pencil"></span></a>
+        </td>
+        <td>{{ question.ability }}</td>
+        <td>{{ question.question }}</td>
+        <td>
+          {% for rank in question.rank.all %}
+            {{ rank.rank_title }}<br>
+          {% endfor %}
+        </td>
+      </tr>
+
+    {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}
