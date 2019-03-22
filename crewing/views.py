@@ -21,9 +21,8 @@ def seamancard(request, seaman_id):
 
 def seaman_add(request):
     title = 'Добавить моряка'
-    form = SeamanForm()
     if request.method == 'POST':
-        form = SeamanForm(request.POST)
+        form = SeamanForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('seamans_list')
@@ -31,6 +30,7 @@ def seaman_add(request):
             return render(request, 'crewing/seaman.html',
                           {'form': form, 'title': title})
     else:
+        form = SeamanForm()
         return render(request, 'crewing/seaman.html',
                       {'form': form, 'title': title})
 
@@ -39,7 +39,7 @@ def seaman_edit(request, seaman_id):
     title = 'Редактировать моряка'
     seaman = get_object_or_404(Seamans, id=seaman_id)
     if request.method == 'POST':
-        form = SeamanForm(request.POST, instance=seaman)
+        form = SeamanForm(request.POST, request.FILES, instance=seaman)
         if form.is_valid():
             form.save()
         else:

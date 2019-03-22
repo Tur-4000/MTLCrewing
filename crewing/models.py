@@ -1,4 +1,11 @@
+from datetime import datetime
+from os.path import splitext
+
 from django.db import models
+
+
+def get_timestamp_path(instance, filename):
+    return '{}{}'.format(datetime.now().timestamp(), splitext(filename)[1])
 
 
 class Seamans(models.Model):
@@ -26,6 +33,9 @@ class Seamans(models.Model):
                                      db_index=True,
                                      blank=False,
                                      verbose_name='Имя (UA)')
+    foto = models.ImageField(verbose_name='Фото',
+                             upload_to=get_timestamp_path,
+                             null=True)
 
     class Meta:
         verbose_name = 'Моряк'
@@ -129,14 +139,30 @@ class Seaman360Ability(models.Model):
 
 
 class Seaman360Question(models.Model):
+    ABILITIES = (
+        (1, 'Организаторские способности'),
+        (2, 'Дисциплинированность'),
+        (3, 'Старательность'),
+        (4, 'Работа в команде'),
+        (5, 'Работоспособность'),
+        (6, 'Ответственность'),
+        (7, 'Стрессоустойчивость'),
+        (8, 'Лидерство'),
+        (9, 'Уверенность в себе'),
+        (10, 'Трудолюбие'),
+    )
     question = models.CharField(max_length=128,
                                 db_index=True,
                                 blank=False,
                                 verbose_name='Вопрос')
     rank = models.ManyToManyField(Ranks, verbose_name='Должность')
-    ability = models.ForeignKey(Seaman360Ability,
-                                on_delete=models.CASCADE,
-                                verbose_name='Компетенция')
+    ability = models.PositiveSmallIntegerField(choices=ABILITIES,
+                                               db_index=True,
+                                               blank=False,
+                                               verbose_name='Компетенция')
+    # ability = models.ForeignKey(Seaman360Ability,
+    #                             on_delete=models.CASCADE,
+    #                             verbose_name='Компетенция')
 
     class Meta:
         verbose_name = 'Вопрос'

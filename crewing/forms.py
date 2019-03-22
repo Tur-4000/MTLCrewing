@@ -1,24 +1,26 @@
 from django import forms
+from django.core import validators
 
 from .models import Seamans, Ranks, Vessels, Opinions, Contracts, \
     Seaman360Question
 
 
 class SeamanForm(forms.ModelForm):
+    foto = forms.ImageField(label='Фото',
+                            validators=[validators.FileExtensionValidator(
+                                allowed_extensions=('jpg', 'png'))],
+                            error_messages={'invalid_extension': 'Этот формат '
+                                            + 'файлов не поддерживается'})
+    last_name_en = forms.TextInput()
+    first_name_en = forms.TextInput()
+    last_name_ru = forms.TextInput()
+    first_name_ru = forms.TextInput()
+    last_name_ua = forms.TextInput()
+    first_name_ua = forms.TextInput()
 
     class Meta:
         model = Seamans
-        fields = ('last_name_en', 'first_name_en',
-                  'last_name_ru', 'first_name_ru',
-                  'last_name_ua', 'first_name_ua',)
-        widgets = {
-            'last_name_en': forms.TextInput(),
-            'first_name_en': forms.TextInput(),
-            'last_name_ru': forms.TextInput(),
-            'first_name_ru': forms.TextInput(),
-            'last_name_ua': forms.TextInput(),
-            'first_name_ua': forms.TextInput(),
-        }
+        fields = '__all__'
 
 
 class RankForm(forms.ModelForm):
