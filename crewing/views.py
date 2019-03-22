@@ -135,9 +135,9 @@ def vessel_edit(request, vessel_id):
 def opinion_add(request, seaman_id):
     title = 'Добавить отзыв'
     seaman = get_object_or_404(Seamans, id=seaman_id)
-    seaman_contracts_queryset = Contracts.objects.filter(seaman=seaman_id).all()
+    qs = Contracts.objects.filter(seaman=seaman_id).all()
     if request.method == 'POST':
-        form = OpinionForm(request.POST)
+        form = OpinionForm(request.POST, contracts=qs)
         if form.is_valid():
             obj = form.save(commit=False)
             obj.seaman = seaman
@@ -147,7 +147,7 @@ def opinion_add(request, seaman_id):
             return render(request, 'crewing/opinion.html',
                           {'title': title, 'form': form, 'seaman': seaman})
     else:
-        form = OpinionForm(initial={'contract': seaman_contracts_queryset})
+        form = OpinionForm(contracts=qs)
         return render(request, 'crewing/opinion.html',
                       {'title': title, 'form': form, 'seaman': seaman})
 
@@ -156,8 +156,9 @@ def opinion_edit(request, seaman_id, opinion_id):
     title = 'Редактировать отзыв'
     seaman = get_object_or_404(Opinions, id=seaman_id)
     opinion = get_object_or_404(Opinions, id=opinion_id)
+    qs = Contracts.objects.filter(seaman=seaman_id).all()
     if request.method == 'POST':
-        form = OpinionForm(request.POST, instance=opinion)
+        form = OpinionForm(request.POST, instance=opinion, contracts=qs)
         if form.is_valid():
             form.save()
             return redirect('seamancard', seaman.id)
@@ -166,7 +167,7 @@ def opinion_edit(request, seaman_id, opinion_id):
                    {'title': title, 'form': form,
                     'opinion': opinion, 'seaman': seaman})
     else:
-        form = OpinionForm(instance=opinion)
+        form = OpinionForm(instance=opinion, contracts=qs)
         return render(request, 'crewing/opinion.html',
                       {'title': title, 'form': form,
                        'opinion': opinion, 'seaman': seaman})
