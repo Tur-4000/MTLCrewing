@@ -35,7 +35,8 @@ class Seamans(models.Model):
                                      verbose_name='Имя (UA)')
     foto = models.ImageField(verbose_name='Фото',
                              upload_to=get_timestamp_path,
-                             null=True)
+                             null=True,
+                             default='seaman.png')
 
     class Meta:
         verbose_name = 'Моряк'
