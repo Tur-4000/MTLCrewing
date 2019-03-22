@@ -10,7 +10,8 @@ class SeamanForm(forms.ModelForm):
                             validators=[validators.FileExtensionValidator(
                                 allowed_extensions=('jpg', 'png'))],
                             error_messages={'invalid_extension': 'Этот формат '
-                                            + 'файлов не поддерживается'})
+                                            + 'файлов не поддерживается'},
+                            required=False)
     last_name_en = forms.TextInput()
     first_name_en = forms.TextInput()
     last_name_ru = forms.TextInput()

@@ -27,11 +27,13 @@ class Seamans(models.Model):
                                      verbose_name='Имя (RU)')
     last_name_ua = models.CharField(max_length=128,
                                     db_index=True,
-                                    blank=False,
+                                    blank=True,
+                                    null=True,
                                     verbose_name='Фамилия (UA)')
     first_name_ua = models.CharField(max_length=128,
                                      db_index=True,
-                                     blank=False,
+                                     blank=True,
+                                     null=True,
                                      verbose_name='Имя (UA)')
     foto = models.ImageField(verbose_name='Фото',
                              upload_to=get_timestamp_path,

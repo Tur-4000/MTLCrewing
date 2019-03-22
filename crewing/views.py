@@ -143,13 +143,10 @@ def opinion_add(request, seaman_id):
             obj.seaman = seaman
             obj.save()
             return redirect('seamancard', seaman_id)
-        else:
-            return render(request, 'crewing/opinion.html',
-                          {'title': title, 'form': form, 'seaman': seaman})
     else:
         form = OpinionForm(contracts=qs)
-        return render(request, 'crewing/opinion.html',
-                      {'title': title, 'form': form, 'seaman': seaman})
+    context = {'title': title, 'form': form, 'seaman': seaman}
+    return render(request, 'crewing/opinion.html', context)
 
 
 def opinion_edit(request, seaman_id, opinion_id):
