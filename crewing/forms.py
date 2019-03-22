@@ -10,7 +10,8 @@ class SeamanForm(forms.ModelForm):
                             validators=[validators.FileExtensionValidator(
                                 allowed_extensions=('jpg', 'png'))],
                             error_messages={'invalid_extension': 'Этот формат '
-                                            + 'файлов не поддерживается'})
+                                            + 'файлов не поддерживается'},
+                            required=False)
     last_name_en = forms.TextInput()
     first_name_en = forms.TextInput()
     last_name_ru = forms.TextInput()
@@ -46,16 +47,24 @@ class VesselForm(forms.ModelForm):
 
 
 class OpinionForm(forms.ModelForm):
+    date = forms.TextInput(attrs={'class': 'span2', 'id': 'dp1'})
+    contract = forms.ModelChoiceField(queryset=Contracts.objects.none())
+    author = forms.TextInput()
+    opinion_text = forms.Textarea(attrs={'rows': 3})
 
     class Meta:
         model = Opinions
         fields = ('date', 'contract', 'author', 'opinion_text')
-        widgets = {
-            'date': forms.TextInput(attrs={'class': 'span2', 'id': 'dp1'}),
-            'contract': forms.Select(),
-            'author': forms.TextInput(),
-            'opinion_text': forms.Textarea(attrs={'rows': 3})
-        }
+
+    def __init__(self, *args, **kwargs):
+        if 'contracts' in kwargs:
+            qs = kwargs.pop('contracts')
+
+        super(OpinionForm, self).__init__(*args, **kwargs)
+        try:
+            self.fields['contract'].queryset = qs
+        except AttributeError:
+            pass
 
 
 class ContractForm(forms.ModelForm):

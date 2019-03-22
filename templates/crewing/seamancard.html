@@ -15,7 +15,8 @@
     <ul class="nav nav-tabs" id="myTabs">
       <li role="presentation" class="nav-item"><a class="nav-link active" href="#home" aria-controls="home" role="tab" data-toggle="tab">{{ seaman.last_name_ru }} {{ seaman.first_name_ru }}</a></li>
       <li role="presentation" class="nav-item"><a class="nav-link" href="#opinion" aria-controls="profile" role="tab" data-toggle="tab">Отзывы</a></li>
-      <li role="presentation" class="nav-item"><a class="nav-link" href="#360" aria-controls="profile" role="tab" data-toggle="tab">360&deg;</a></li>
+      <li role="presentation" class="nav-item"><a class="nav-link" href="#seaman-360" aria-controls="profile" role="tab" data-toggle="tab">360&deg; (Моряки)</a></li>
+      <li role="presentation" class="nav-item"><a class="nav-link" href="#master-360" aria-controls="profile" role="tab" data-toggle="tab">360&deg; (Капитан+берег)</a></li>
     </ul>
 
     <div class="tab-content">
@@ -81,29 +82,77 @@
         </div>
       <div role="tabpanel" class="tab-pane" id="opinion">
 
-          <p class="mt-3">
-            <a href="{% url 'opinion_add' seaman.id %}" class="btn btn-primary">
-              <span class="icon icon-plus" aria-hidden="true"></span>
-              Добавить отзыв</a>
-          </p>
+        <p class="mt-3">
+          <a href="{% url 'opinion_add' seaman.id %}" class="btn btn-primary">
+            <span class="icon icon-plus" aria-hidden="true"></span>
+            Добавить отзыв</a>
+        </p>
 
-          {% for opinion in opinions %}
-            <div class="card mt-2">
-              <div class="card-header">
-                {{ opinion.date }} | {{ opinion.author }} | {{ opinion.contract }}
-              </div>
-              <div class="card-body">
-                {{ opinion.opinion_text }}
-              </div>
-              <div class="card-footer">
-                <a href="{% url 'opinion_edit' seaman.id opinion.id %}" class="float-right">
-                  <span class="icon icon-pencil"></span> Редактировать</a>
-              </div>
+        {% for opinion in opinions %}
+          <div class="card mt-2">
+            <div class="card-header">
+              {{ opinion.date }} | {{ opinion.author }} | {{ opinion.contract }}
             </div>
-          {% endfor %}
+            <div class="card-body">
+              {{ opinion.opinion_text }}
+            </div>
+            <div class="card-footer">
+              <a href="{% url 'opinion_edit' seaman.id opinion.id %}" class="float-right">
+                <span class="icon icon-pencil"></span> Редактировать</a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <div role="tabpanel" class="tab-pane" id="seaman-360">
+        <table class="table table-sm table-hover">
+          <thead>
+          <tr>
+            <th colspan="2">
+              <a href="" class="btn btn-outline-success btn-sm">
+                <span class="icon icon-plus" aria-hidden="true"></span>
+                Добавить</a>
+            </th>
+            <th>3,8</th>
+            <th>4,2</th>
+            <th>4,5</th>
+            <th>4,6</th>
+            <th>4,5</th>
+          </tr>
+          <tr>
+            <th>Дата</th>
+            <th>Кто оценивал</th>
+            <th>Дисциплинированность</th>
+            <th>Старательность</th>
+            <th>Работа в команде</th>
+            <th>Работоспособность</th>
+            <th>Ответственность</th>
+          </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>25/04/2018</td>
+              <td>Иванов</td>
+              <td>3,4</td>
+              <td>4,5</td>
+              <td>4,5</td>
+              <td>5</td>
+              <td>4,8</td>
+            </tr>
+            <tr>
+              <td>16/03/2018</td>
+              <td>Сидоров</td>
+              <td>4,1</td>
+              <td>3,9</td>
+              <td>0</td>
+              <td>4,2</td>
+              <td>4,2</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div role="tabpanel" class="tab-pane" id="master-360"></div>
     </div>
-      <div role="tabpanel" class="tab-pane" id="360"></div>
-    </div>
+
   </div>
   </div>
 
@@ -113,7 +162,7 @@
   {{ block.super }}
   <script>
     $('#myTabs a').click(function (e) {
-      e.preventDefault()
+      e.preventDefault();
       $(this).tab('show')
     })
   </script>

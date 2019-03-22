@@ -27,11 +27,13 @@ class Seamans(models.Model):
                                      verbose_name='Имя (RU)')
     last_name_ua = models.CharField(max_length=128,
                                     db_index=True,
-                                    blank=False,
+                                    blank=True,
+                                    null=True,
                                     verbose_name='Фамилия (UA)')
     first_name_ua = models.CharField(max_length=128,
                                      db_index=True,
-                                     blank=False,
+                                     blank=True,
+                                     null=True,
                                      verbose_name='Имя (UA)')
     foto = models.ImageField(verbose_name='Фото',
                              upload_to=get_timestamp_path,
@@ -171,3 +173,66 @@ class Seaman360Question(models.Model):
 
     def __str__(self):
         return f'{self.question}'
+
+
+class Seaman360Rating(models.Model):
+    seaman = models.ForeignKey(Seamans,
+                               on_delete=models.CASCADE,
+                               verbose_name='Оцениваемый моряк',
+                               db_index=True,
+                               blank=False,
+                               related_name='rates_to')
+    date = models.DateTimeField(verbose_name='Метка времени',
+                                db_index=True,
+                                blank=False)
+    appraiser = models.ForeignKey(Seamans,
+                                  on_delete=models.CASCADE,
+                                  verbose_name='Кто оценивал',
+                                  related_name='rates_from')
+    ability1 = models.DecimalField(verbose_name='Организаторские способности',
+                                   db_index=True,
+                                   max_digits=2,
+                                   decimal_places=1)
+    ability2 = models.DecimalField(verbose_name='Дисциплинированность',
+                                   db_index=True,
+                                   max_digits=2,
+                                   decimal_places=1)
+    ability3 = models.DecimalField(verbose_name='Старательность',
+                                   db_index=True,
+                                   max_digits=2,
+                                   decimal_places=1)
+    ability4 = models.DecimalField(verbose_name='Работа в команде',
+                                   db_index=True,
+                                   max_digits=2,
+                                   decimal_places=1)
+    ability5 = models.DecimalField(verbose_name='Работоспособность',
+                                   db_index=True,
+                                   max_digits=2,
+                                   decimal_places=1)
+    ability6 = models.DecimalField(verbose_name='Ответственность',
+                                   db_index=True,
+                                   max_digits=2,
+                                   decimal_places=1)
+    ability7 = models.DecimalField(verbose_name='Стрессоустойчивость',
+                                   db_index=True,
+                                   max_digits=2,
+                                   decimal_places=1)
+    ability8 = models.DecimalField(verbose_name='Лидерство',
+                                   db_index=True,
+                                   max_digits=2,
+                                   decimal_places=1)
+    ability9 = models.DecimalField(verbose_name='Уверенность в себе',
+                                   db_index=True,
+                                   max_digits=2,
+                                   decimal_places=1)
+    ability10 = models.DecimalField(verbose_name='Трудолюбие',
+                                    db_index=True,
+                                    max_digits=2,
+                                    decimal_places=1)
+
+    class Meta:
+        verbose_name = 'Рейтинг 360 (моряки)'
+        verbose_name_plural = 'Рейтинги 360 (моряки)'
+
+    def __str__(self):
+        return f'{self.seaman}: {self.date}'
