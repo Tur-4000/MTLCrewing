@@ -45,17 +45,28 @@ class VesselForm(forms.ModelForm):
         }
 
 
+# seaman_contracts_queryset = Contracts.objects.filter(seaman=seaman.id).all()
+
+
 class OpinionForm(forms.ModelForm):
+    date = forms.TextInput(attrs={'class': 'span2', 'id': 'dp1'})
+    contract = forms.ModelChoiceField(queryset=)
+    author = forms.TextInput()
+    opinion_text = forms.Textarea(attrs={'rows': 3})
 
     class Meta:
         model = Opinions
         fields = ('date', 'contract', 'author', 'opinion_text')
-        widgets = {
-            'date': forms.TextInput(attrs={'class': 'span2', 'id': 'dp1'}),
-            'contract': forms.Select(),
-            'author': forms.TextInput(),
-            'opinion_text': forms.Textarea(attrs={'rows': 3})
-        }
+
+    def __init__(self, seaman_id, *args, **kwargs):
+        super(OpinionForm, self).__init__(*args, **kwargs)
+        self.seaman_id = seaman_id
+
+    @staticmethod
+    def seaman_contracts_queryset(self):
+        return Contracts.objects.filter(seaman=self.seaman_id).all()
+
+
 
 
 class ContractForm(forms.ModelForm):
