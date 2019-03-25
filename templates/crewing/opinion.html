@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% load crispy_forms_tags %}
 
 {% block title %}
@@ -30,6 +32,9 @@
     pickmeup('#id_date', {
       format	: 'Y-m-d',
       default_date: false,
+      position: 'left',
+      hide_on_select: true,
+      locale: 'ru',
     });
   </script>
 {% endblock %}
