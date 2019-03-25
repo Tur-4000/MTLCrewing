@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% load crispy_forms_tags %}
 
 {% block title %}
@@ -21,4 +23,25 @@
     </form>
   </div>
 
+{% endblock %}
+
+{% block scripts %}
+  {{ block.super }}
+
+  <script>
+    pickmeup('#id_sign_in_date', {
+      format	: 'Y-m-d',
+      default_date: false,
+      position: 'left',
+      hide_on_select: true,
+      locale: 'ru',
+    });
+    pickmeup('#id_sign_off_date', {
+      format	: 'Y-m-d',
+      default_date: false,
+      position: 'left',
+      hide_on_select: true,
+      locale: 'ru',
+    });
+  </script>
 {% endblock %}

@@ -4,6 +4,7 @@ from .models import Seamans, Ranks, Vessels, Contracts, Opinions,\
     Seaman360Question
 from .forms import SeamanForm, RankForm, VesselForm, OpinionForm, ContractForm,\
     Seaman360QuestionForm
+from .utils import last_rank
 
 
 def seamans_list(request):
@@ -179,6 +180,8 @@ def contract_add(request, seaman_id):
             obj = form.save(commit=False)
             obj.seaman = seaman
             obj.save()
+            seaman.last_rank = last_rank(seaman_id)
+            seaman.save()
             return redirect('seamancard', seaman_id)
         else:
             return render(request, 'crewing/contract.html',
@@ -187,6 +190,25 @@ def contract_add(request, seaman_id):
         form = ContractForm()
         return render(request, 'crewing/contract.html',
                       {'title': title, 'form': form, 'seaman': seaman})
+
+
+def contract_edit(request, seaman_id, contract_id):
+    title = 'Редактировать контракт'
+    contract = get_object_or_404(Contracts, id=contract_id)
+    seaman = get_object_or_404(Seamans, id=seaman_id)
+    if request.method == 'POST':
+        form = ContractForm(request.POST, instance=contract)
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.seaman = seaman
+            obj.save()
+            seaman.last_rank = last_rank(seaman_id)
+            seaman.save()
+            return redirect('seamancard', seaman_id)
+    else:
+        form = ContractForm(instance=contract)
+    context = {'title': title, 'form': form, 'seaman': seaman}
+    return render(request, 'crewing/contract.html', context)
 
 
 def seamans_questions_list(request):
