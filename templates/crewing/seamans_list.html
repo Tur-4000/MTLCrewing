@@ -15,6 +15,7 @@
     <thead>
     <tr>
       <th></th>
+      <th></th>
       <th>Ф.И.О. (EN, RU, UA)</th>
       <th></th>
     </tr>
@@ -25,6 +26,13 @@
       <tr>
         <td>
           <a href="{% url 'seaman_edit' seaman.id %}"><span class="icon icon-pencil"></span></a>
+        </td>
+        <td width="50px">
+          <div class="media">
+            <div class="media-left">
+              <img class="media-object" src="{{ seaman.foto.url }}" height="70px" alt="Foto">
+            </div>
+          </div>
         </td>
         <td>
           <a href="{% url 'seamancard' seaman.id %}">

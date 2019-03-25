@@ -2,6 +2,9 @@ from datetime import datetime
 from os.path import splitext
 
 from django.db import models
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 def get_timestamp_path(instance, filename):

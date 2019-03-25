@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'crewing',
+    'user',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -134,5 +135,10 @@ STATICFILES_DIRS = [
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+# AUTH_USER_MODEL = 'users.CustomUser'
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'seamans_list'
+LOGOUT_REDIRECT_URL = 'seamans_list'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
