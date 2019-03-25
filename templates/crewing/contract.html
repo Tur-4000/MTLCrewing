@@ -22,3 +22,17 @@
   </div>
 
 {% endblock %}
+
+{% block scripts %}
+  {{ block.super }}
+  <script>
+    pickmeup('#id_sign_in_date', {
+      format	: 'Y-m-d',
+      default_date: false,
+    });
+    pickmeup('#id_sign_off_date', {
+      format	: 'Y-m-d',
+      default_date: false,
+    });
+  </script>
+{% endblock %}

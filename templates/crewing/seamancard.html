@@ -74,7 +74,9 @@
 
             {% for contract in contracts %}
               <tr>
-                <td></td>
+                <td>
+                  <a href="{% url 'contract_edit' seaman.id contract.id %}"><span class="icon icon-pencil"></span></a>
+                </td>
                 <td>{{ contract.vessel }}</td>
                 <td>{{ contract.rank }}</td>
                 <td>{{ contract.sign_in_date }}</td>
@@ -170,6 +172,5 @@
     $('#myTabs a').click(function (e) {
       e.preventDefault();
       $(this).tab('show')
-    })
-  </script>
+    });
 {% endblock %}

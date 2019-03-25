@@ -71,16 +71,20 @@ class OpinionForm(forms.ModelForm):
 
 
 class ContractForm(forms.ModelForm):
+    vessel = forms.Select()
+    rank = forms.Select()
+    sign_in_date = forms.TextInput()
+    sign_off_date = forms.TextInput()
 
     class Meta:
         model = Contracts
         fields = ('vessel', 'rank', 'sign_in_date', 'sign_off_date')
-        widgets = {
-            'vessel': forms.Select(),
-            'rank': forms.Select(),
-            'sign_in_date': forms.DateInput(attrs={'type': 'date'}),
-            'sign_off_date': forms.DateInput(attrs={'type': 'date'})
-        }
+        # widgets = {
+        #     'vessel': forms.Select(),
+        #     'rank': forms.Select(),
+        #     'sign_in_date': forms.DateInput(attrs={'type': 'date'}),
+        #     'sign_off_date': forms.DateInput(attrs={'type': 'date'})
+        # }
 
 
 class Seaman360QuestionForm(forms.ModelForm):
