@@ -21,7 +21,10 @@ class SeamanForm(forms.ModelForm):
 
     class Meta:
         model = Seamans
-        fields = '__all__'
+        fields = ('last_name_ru', 'first_name_ru',
+                  'last_name_en', 'first_name_en',
+                  'last_name_ua', 'first_name_ua',
+                  'foto')
 
 
 class RankForm(forms.ModelForm):

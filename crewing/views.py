@@ -4,6 +4,7 @@ from .models import Seamans, Ranks, Vessels, Contracts, Opinions,\
     Seaman360Question
 from .forms import SeamanForm, RankForm, VesselForm, OpinionForm, ContractForm,\
     Seaman360QuestionForm
+from .utils import last_rank
 
 
 def seamans_list(request):
@@ -179,6 +180,8 @@ def contract_add(request, seaman_id):
             obj = form.save(commit=False)
             obj.seaman = seaman
             obj.save()
+            seaman.last_rank = last_rank(seaman_id)
+            seaman.save()
             return redirect('seamancard', seaman_id)
         else:
             return render(request, 'crewing/contract.html',
