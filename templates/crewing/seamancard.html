@@ -21,42 +21,47 @@
 
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active" id="home">
-        <br>
-        <div class="media">
-          
-          <div class="media-body ml-5">
-            <div class="row">
-              <div class="media-left">
-                  <img class="media-object" src="{{ seaman.foto.url }}" height="150px" alt="Foto">
-              </div>
-              <div class="col-md-3 col-md-offset-1">
-                <p>RU</p>
-                <h3>{{ seaman.last_name_ru }} {{ seaman.first_name_ru }}</h3>
-              </div>
-              <div class="col-md-3">
-                <p>EN</p>
-                <h3>{{ seaman.last_name_en }} {{ seaman.first_name_en }}</h3>
-              </div>
-              <div class="col-md-3">
-                <p>UA</p>
-                <h3>{{ seaman.last_name_ua }} {{ seaman.first_name_ua }}</h3>
-              </div>
+            <br>
+            <div class="media">
+                <div class="media-left">
+                    <img class="media-object" src="{{ seaman.foto.url }}" height="150px" alt="Foto">
+                </div>
+                <div class="media-body ml-5">
+                  <div class="row">
+                    <div class="col-md-3 col-md-offset-1">
+                        <p>RU</p>
+                        <h3>{{ seaman.last_name_ru }} {{ seaman.first_name_ru }}</h3>
+                    </div>
+                    <div class="col-md-3">
+                        <p>EN</p>
+                        <h3>{{ seaman.last_name_en }} {{ seaman.first_name_en }}</h3>
+                    </div>
+                    <div class="col-md-3">
+                        <p>UA</p>
+                        <h3>{{ seaman.last_name_ua }} {{ seaman.first_name_ua }}</h3>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-12">
+                      Должность в последнем/текущем контракте: <strong>{{ seaman.last_rank|default_if_none:"" }}</strong>
+                    </div>
+                  </div>
+                </div>
             </div>
-          </div>
-        </div>
         <hr>
         <div>
           <div class="row">
             <div class="col-6 mr-auto"><h4>Контракты</h4></div>
             <div class="col-6">
               <a href="{% url 'contract_add' seaman.id %}" class="btn btn-outline-success btn-sm float-right">
-                <span class="icon icon-plus"></span>
+                <span class="icon icon-plus-squared"></span>
                 Добавить контракт</a>
             </div>
           </div>
 
           <table class="table table-sm table-hover">
-            <thead>
+            <thead class="thead-mtl">
             <tr>
               <th></th>
               <th>Судно</th>
@@ -69,11 +74,13 @@
 
             {% for contract in contracts %}
               <tr>
-                <td></td>
+                <td>
+                  <a href="{% url 'contract_edit' seaman.id contract.id %}"><span class="icon icon-pencil"></span></a>
+                </td>
                 <td>{{ contract.vessel }}</td>
                 <td>{{ contract.rank }}</td>
                 <td>{{ contract.sign_in_date }}</td>
-                <td>{{ contract.sign_off_date }}</td>
+                <td>{{ contract.sign_off_date|default_if_none:"" }}</td>
               </tr>
             {% endfor %}
 
@@ -165,6 +172,5 @@
     $('#myTabs a').click(function (e) {
       e.preventDefault();
       $(this).tab('show')
-    })
-  </script>
+    });
 {% endblock %}
