@@ -21,28 +21,29 @@
 
     <div class="tab-content">
       <div role="tabpanel" class="tab-pane active" id="home">
-            <br>
-            <div class="media">
-                <div class="media-left">
-                    <img class="media-object" src="{{ seaman.foto.url }}" height="150px" alt="Foto">
-                </div>
-                <div class="media-body ml-5">
-                    <div class="row">
-                        <div class="col-md-3 col-md-offset-1">
-                            <p>RU</p>
-                            <h3>{{ seaman.last_name_ru }} {{ seaman.first_name_ru }}</h3>
-                        </div>
-                        <div class="col-md-3">
-                            <p>EN</p>
-                            <h3>{{ seaman.last_name_en }} {{ seaman.first_name_en }}</h3>
-                        </div>
-                        <div class="col-md-3">
-                            <p>UA</p>
-                            <h3>{{ seaman.last_name_ua }} {{ seaman.first_name_ua }}</h3>
-                        </div>
-                    </div>
-                </div>
+        <br>
+        <div class="media">
+          
+          <div class="media-body ml-5">
+            <div class="row">
+              <div class="media-left">
+                  <img class="media-object" src="{{ seaman.foto.url }}" height="150px" alt="Foto">
+              </div>
+              <div class="col-md-3 col-md-offset-1">
+                <p>RU</p>
+                <h3>{{ seaman.last_name_ru }} {{ seaman.first_name_ru }}</h3>
+              </div>
+              <div class="col-md-3">
+                <p>EN</p>
+                <h3>{{ seaman.last_name_en }} {{ seaman.first_name_en }}</h3>
+              </div>
+              <div class="col-md-3">
+                <p>UA</p>
+                <h3>{{ seaman.last_name_ua }} {{ seaman.first_name_ua }}</h3>
+              </div>
             </div>
+          </div>
+        </div>
         <hr>
         <div>
           <div class="row">
