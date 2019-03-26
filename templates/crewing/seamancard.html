@@ -91,24 +91,23 @@
       <div role="tabpanel" class="tab-pane" id="opinion">
 
         <p class="mt-3">
-          <a href="{% url 'opinion_add' seaman.id %}" class="btn btn-primary">
-            <span class="icon icon-plus" aria-hidden="true"></span>
+          <a href="{% url 'opinion_add' seaman.id %}" class="btn btn-sm btn-outline-success">
+            <span class="icon icon-plus-squared" aria-hidden="true"></span>
             Добавить отзыв</a>
         </p>
 
         {% for opinion in opinions %}
-          <div class="card mt-2">
-            <div class="card-header">
-              {{ opinion.date }} | {{ opinion.author }} | {{ opinion.contract }}
-            </div>
+
+          <div class="card mt-2 col-lg-8 col-md-10 col-sm-12 col-xs-12">
             <div class="card-body">
-              {{ opinion.opinion_text }}
-            </div>
-            <div class="card-footer">
-              <a href="{% url 'opinion_edit' seaman.id opinion.id %}" class="float-right">
+              <h5 class="card-title">{{ opinion.date }} | {{ opinion.author }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{ opinion.contract }}</h6>
+              <p class="card-text">{{ opinion.opinion_text }}</p>
+              <a href="{% url 'opinion_edit' seaman.id opinion.id %}" class="card-link float-right">
                 <span class="icon icon-pencil"></span> Редактировать</a>
             </div>
           </div>
+
         {% endfor %}
       </div>
       <div role="tabpanel" class="tab-pane" id="seaman-360">
@@ -117,7 +116,7 @@
           <tr>
             <th colspan="2">
               <a href="" class="btn btn-outline-success btn-sm">
-                <span class="icon icon-plus" aria-hidden="true"></span>
+                <span class="icon icon-plus-squared" aria-hidden="true"></span>
                 Добавить</a>
             </th>
             <th>3,8</th>
