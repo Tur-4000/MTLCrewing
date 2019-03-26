@@ -170,13 +170,13 @@ class Seaman360Question(models.Model):
                                 blank=False,
                                 verbose_name='Вопрос')
     rank = models.ManyToManyField(Ranks, verbose_name='Должность')
-    ability = models.PositiveSmallIntegerField(choices=ABILITIES,
-                                               db_index=True,
-                                               blank=False,
-                                               verbose_name='Компетенция')
-    # ability = models.ForeignKey(Seaman360Ability,
-    #                             on_delete=models.CASCADE,
-    #                             verbose_name='Компетенция')
+    # ability = models.PositiveSmallIntegerField(choices=ABILITIES,
+    #                                            db_index=True,
+    #                                            blank=False,
+    #                                            verbose_name='Компетенция')
+    ability = models.ForeignKey(Seaman360Ability,
+                                on_delete=models.CASCADE,
+                                verbose_name='Компетенция')
 
     class Meta:
         verbose_name = 'Вопрос'

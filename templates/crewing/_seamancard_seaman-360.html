@@ -1,0 +1,46 @@
+<table class="table table-sm table-hover">
+  <thead>
+  <tr>
+    <th colspan="2">
+      <a href="" class="btn btn-outline-success btn-sm">
+        <span class="icon icon-plus-squared" aria-hidden="true"></span>
+        Добавить</a>
+    </th>
+    <th>3,8</th>
+    <th>4,2</th>
+    <th>4,5</th>
+    <th>4,6</th>
+    <th>4,5</th>
+  </tr>
+  <tr>
+    <th>Дата</th>
+    <th>Кто оценивал</th>
+
+    {% for ability in abilities %}
+
+      <th>{{ ability.get_ability_display }}</th>
+
+    {% endfor %}
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>25/04/2018</td>
+      <td>Иванов</td>
+      <td>3,4</td>
+      <td>4,5</td>
+      <td>4,5</td>
+      <td>5</td>
+      <td>4,8</td>
+    </tr>
+    <tr>
+      <td>16/03/2018</td>
+      <td>Сидоров</td>
+      <td>4,1</td>
+      <td>3,9</td>
+      <td>0</td>
+      <td>4,2</td>
+      <td>4,2</td>
+    </tr>
+  </tbody>
+</table>

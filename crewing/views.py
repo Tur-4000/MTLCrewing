@@ -17,7 +17,9 @@ def seamancard(request, seaman_id):
     seaman = get_object_or_404(Seamans, id=seaman_id)
     contracts = Contracts.objects.filter(seaman=seaman_id).all()
     opinions = Opinions.objects.filter(seaman=seaman_id).all()
-    context = {'seaman': seaman, 'contracts': contracts, 'opinions': opinions}
+    abilities = Seaman360Question.objects.filter(rank=seaman.last_rank)
+    context = {'seaman': seaman, 'contracts': contracts,
+               'opinions': opinions, 'abilities': abilities}
     return render(request, 'crewing/seamancard.html', context)
 
 
