@@ -2,7 +2,7 @@ from django import forms
 from django.core import validators
 
 from .models import Seamans, Ranks, Vessels, Opinions, Contracts, \
-    Seaman360Question
+    Seaman360Question, Seaman360Rating
 
 
 class SeamanForm(forms.ModelForm):
@@ -97,3 +97,10 @@ class Seaman360QuestionForm(forms.ModelForm):
             'rank': forms.CheckboxSelectMultiple(),
             'ability': forms.Select()
         }
+
+
+class SeamanRatingForm(forms.ModelForm):
+
+    class Meta:
+        model = Seaman360Rating
+        fields = '__all__'

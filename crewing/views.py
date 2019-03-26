@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .models import Seamans, Ranks, Vessels, Contracts, Opinions, Seaman360Question, Seaman360Ability
+from .models import Seamans, Ranks, Vessels, Contracts, Opinions, \
+    Seaman360Question, Seaman360Ability, Seaman360Rating
 from .forms import SeamanForm, RankForm, VesselForm, OpinionForm, ContractForm,\
-    Seaman360QuestionForm
+    Seaman360QuestionForm, SeamanRatingForm
 from .utils import last_rank
 
 
@@ -249,3 +250,19 @@ def seaman_questuion_edit(request, question_id):
 
     context = {'title': title, 'form': form}
     return render(request, 'crewing/question.html', context)
+
+
+def seaman_rating_add(request, seaman_id):
+    title = 'Добавить рейтинг 360'
+    seaman = get_object_or_404(Seamans, id=seaman_id)
+
+    if request.method == 'POST':
+        form = SeamanRatingForm(request.POST)
+        if form.is_valid():
+            form.save()
+    else:
+        form = SeamanRatingForm()
+
+    context = {'title': title, 'seaman': seaman, 'form': form}
+    return render(request, 'crewing/seaman_rating_add.html', context)
+
