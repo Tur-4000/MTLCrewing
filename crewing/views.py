@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .models import Seamans, Ranks, Vessels, Contracts, Opinions,\
-    Seaman360Question
+from .models import Seamans, Ranks, Vessels, Contracts, Opinions, Seaman360Question, Seaman360Ability
 from .forms import SeamanForm, RankForm, VesselForm, OpinionForm, ContractForm,\
     Seaman360QuestionForm
 from .utils import last_rank
@@ -17,7 +16,10 @@ def seamancard(request, seaman_id):
     seaman = get_object_or_404(Seamans, id=seaman_id)
     contracts = Contracts.objects.filter(seaman=seaman_id).all()
     opinions = Opinions.objects.filter(seaman=seaman_id).all()
-    abilities = Seaman360Question.objects.filter(rank=seaman.last_rank)
+
+    rank = get_object_or_404(Ranks, id=seaman.last_rank.id)
+    abilities = rank.abilities.all()
+
     context = {'seaman': seaman, 'contracts': contracts,
                'opinions': opinions, 'abilities': abilities}
     return render(request, 'crewing/seamancard.html', context)

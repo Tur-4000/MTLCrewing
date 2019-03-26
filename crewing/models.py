@@ -143,6 +143,7 @@ class Seaman360Ability(models.Model):
                                db_index=True,
                                blank=False,
                                verbose_name='Компетенция')
+    ranks = models.ManyToManyField(Ranks, related_name='abilities')
 
     class Meta:
         verbose_name = 'Компетенция'
@@ -169,7 +170,9 @@ class Seaman360Question(models.Model):
                                 db_index=True,
                                 blank=False,
                                 verbose_name='Вопрос')
-    rank = models.ManyToManyField(Ranks, verbose_name='Должность')
+    rank = models.ManyToManyField(Ranks,
+                                  verbose_name='Должность',
+                                  related_name='Компетенции')
     # ability = models.PositiveSmallIntegerField(choices=ABILITIES,
     #                                            db_index=True,
     #                                            blank=False,
