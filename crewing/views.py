@@ -216,10 +216,10 @@ def seamans_questions_list(request):
     title = 'Вопросы рейтинга 360 (моряки)'
     questions = Seaman360Question.objects.all()
     context = {'title': title, 'questions': questions}
-    return render(request, 'crewing/rating_seaman.html', context)
+    return render(request, 'crewing/questions_seaman.html', context)
 
 
-def seamans_questions_add(request):
+def seamans_question_add(request):
     title = 'Добавить вопрос рейтинга 360 (моряки)'
 
     if request.method == 'POST':
@@ -229,6 +229,21 @@ def seamans_questions_add(request):
             return redirect('seamans_questions_list')
     else:
         form = Seaman360QuestionForm()
+
+    context = {'title': title, 'form': form}
+    return render(request, 'crewing/question.html', context)
+
+
+def seaman_questuion_edit(request, question_id):
+    title = 'Редактировать вопрос рейтинга 360 (моряки)'
+    question = get_object_or_404(Seaman360Question, id=question_id)
+    if request.method == 'POST':
+        form = Seaman360QuestionForm(request.POST, instance=question)
+        if form.is_valid():
+            form.save()
+            return redirect('seamans_questions_list')
+    else:
+        form = Seaman360QuestionForm(instance=question)
 
     context = {'title': title, 'form': form}
     return render(request, 'crewing/question.html', context)

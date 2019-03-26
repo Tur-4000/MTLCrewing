@@ -25,9 +25,9 @@
 
       <tr>
         <td>
-          <a href=""><span class="icon icon-pencil"></span></a>
+          <a href="{% url 'seamans_question_edit' question.id %}"><span class="icon icon-pencil"></span></a>
         </td>
-        <td>{{ question.get_ability_display }}</td>
+        <td>{{ question.ability }}</td>
         <td>{{ question.question }}</td>
         <td>
           {% for rank in question.rank.all %}
