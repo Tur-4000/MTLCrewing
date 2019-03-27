@@ -207,43 +207,73 @@ class Seaman360Rating(models.Model):
     ability1 = models.DecimalField(verbose_name='Организаторские способности',
                                    db_index=True,
                                    max_digits=2,
-                                   decimal_places=1)
+                                   decimal_places=1,
+                                   blank=True,
+                                   null=True,
+                                   default=None)
     ability2 = models.DecimalField(verbose_name='Дисциплинированность',
                                    db_index=True,
                                    max_digits=2,
-                                   decimal_places=1)
+                                   decimal_places=1,
+                                   blank=True,
+                                   null=True,
+                                   default=None)
     ability3 = models.DecimalField(verbose_name='Старательность',
                                    db_index=True,
                                    max_digits=2,
-                                   decimal_places=1)
+                                   decimal_places=1,
+                                   blank=True,
+                                   null=True,
+                                   default=None)
     ability4 = models.DecimalField(verbose_name='Работа в команде',
                                    db_index=True,
                                    max_digits=2,
-                                   decimal_places=1)
+                                   decimal_places=1,
+                                   blank=True,
+                                   null=True,
+                                   default=None)
     ability5 = models.DecimalField(verbose_name='Работоспособность',
                                    db_index=True,
                                    max_digits=2,
-                                   decimal_places=1)
+                                   decimal_places=1,
+                                   blank=True,
+                                   null=True,
+                                   default=None)
     ability6 = models.DecimalField(verbose_name='Ответственность',
                                    db_index=True,
                                    max_digits=2,
-                                   decimal_places=1)
+                                   decimal_places=1,
+                                   blank=True,
+                                   null=True,
+                                   default=None)
     ability7 = models.DecimalField(verbose_name='Стрессоустойчивость',
                                    db_index=True,
                                    max_digits=2,
-                                   decimal_places=1)
+                                   decimal_places=1,
+                                   blank=True,
+                                   null=True,
+                                   default=None)
     ability8 = models.DecimalField(verbose_name='Лидерство',
                                    db_index=True,
                                    max_digits=2,
-                                   decimal_places=1)
+                                   decimal_places=1,
+                                   blank=True,
+                                   null=True,
+                                   default=None)
     ability9 = models.DecimalField(verbose_name='Уверенность в себе',
                                    db_index=True,
                                    max_digits=2,
-                                   decimal_places=1)
+                                   decimal_places=1,
+                                   blank=True,
+                                   null=True,
+                                   default=None)
     ability10 = models.DecimalField(verbose_name='Трудолюбие',
                                     db_index=True,
                                     max_digits=2,
-                                    decimal_places=1)
+                                    decimal_places=1,
+                                    blank=True,
+                                    null=True,
+                                    default=None)
 
     class Meta:
         verbose_name = 'Рейтинг 360 (моряки)'
