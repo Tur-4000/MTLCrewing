@@ -9,10 +9,18 @@
   <div class="card mt-2 col-lg-8 col-md-10 col-sm-12 col-xs-12">
     <div class="card-body">
       <h5 class="card-title">{{ opinion.date }} | {{ opinion.author }}</h5>
-      <h6 class="card-subtitle mb-2 text-muted">{{ opinion.contract }}</h6>
+
       <p class="card-text">{{ opinion.opinion_text }}</p>
-      <a href="{% url 'opinion_edit' seaman.id opinion.id %}" class="card-link float-right">
+      <div class="row">
+        <div class="col-6">
+          <p class="text-muted">{{ opinion.contract }}</p>
+        </div>
+        <div class="col-6">
+          <a href="{% url 'opinion_edit' seaman.id opinion.id %}" class="card-link float-right">
         <span class="icon icon-pencil"></span> Редактировать</a>
+        </div>
+      </div>
+
     </div>
   </div>
 
