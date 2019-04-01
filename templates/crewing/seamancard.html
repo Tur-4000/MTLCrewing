@@ -15,8 +15,9 @@
     <ul class="nav nav-tabs" id="myTabs">
       <li role="presentation" class="nav-item"><a class="nav-link active" href="#main" aria-controls="home" role="tab" data-toggle="tab">{{ seaman.last_name_ru }} {{ seaman.first_name_ru }}</a></li>
       <li role="presentation" class="nav-item"><a class="nav-link" href="#opinion" aria-controls="profile" role="tab" data-toggle="tab">Отзывы</a></li>
-      <li role="presentation" class="nav-item"><a class="nav-link" href="#seaman-360" aria-controls="profile" role="tab" data-toggle="tab">360&deg; (Моряки)</a></li>
-      <li role="presentation" class="nav-item"><a class="nav-link" href="#master-360" aria-controls="profile" role="tab" data-toggle="tab">360&deg; (Капитан+берег)</a></li>
+      <li role="presentation" class="nav-item"><a class="nav-link" href="#seaman-360" aria-controls="profile" role="tab" data-toggle="tab">Рейтинг 360&deg;</a></li>
+      <li role="presentation" class="nav-item"><a class="nav-link" href="#master" aria-controls="profile" role="tab" data-toggle="tab">Судовая характеристика</a></li>
+      <li role="presentation" class="nav-item"><a class="nav-link" href="#officer" aria-controls="profile" role="tab" data-toggle="tab">Береговая характеристика</a></li>
     </ul>
 
     <div class="tab-content">
@@ -28,9 +29,10 @@
         {% include 'crewing/_seamancard_opinion.html' %}
       </div>
       <div role="tabpanel" class="tab-pane" id="seaman-360">
-        {% include 'crewing/_seamancard_seaman-360.html' %}
+        {% include 'crewing/_seamancard_360.html' %}
       </div>
-      <div role="tabpanel" class="tab-pane" id="master-360"></div>
+      <div role="tabpanel" class="tab-pane" id="master"></div>
+      <div role="tabpanel" class="tab-pane" id="officer"></div>
     </div>
 
   </div>
