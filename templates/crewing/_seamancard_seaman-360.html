@@ -1,27 +1,27 @@
 <table class="table table-sm table-hover mt-3">
   <thead>
-  <tr>
-    <th colspan="2">
-      <a href="{% url 'seaman_rating_add' seaman.id %}" class="btn btn-outline-success btn-sm">
-        <span class="icon icon-plus-squared" aria-hidden="true"></span>
-        Добавить</a>
-    </th>
-    <th>3,8</th>
-    <th>4,2</th>
-    <th>4,5</th>
-    <th>4,6</th>
-    <th>4,5</th>
-  </tr>
-  <tr>
-    <th>Дата</th>
-    <th>Кто оценивал</th>
+    <tr>
+      <th colspan="2">
+        <a href="{% url 'seaman_rating_add' seaman.id %}" class="btn btn-outline-success btn-sm">
+          <span class="icon icon-plus-squared" aria-hidden="true"></span>
+          Добавить</a>
+      </th>
+      <th>3,8</th>
+      <th>4,2</th>
+      <th>4,5</th>
+      <th>4,6</th>
+      <th>4,5</th>
+    </tr>
+    <tr>
+      <th>Дата</th>
+      <th>Кто оценивал</th>
 
-    {% for ability in abilities %}
+      {% for ability in abilities %}
 
-      <th>{{ ability.ability }}</th>
+        <th>{{ ability.ability }}</th>
 
-    {% endfor %}
-  </tr>
+      {% endfor %}
+    </tr>
   </thead>
   <tbody>
     <tr>
