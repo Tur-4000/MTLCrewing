@@ -58,14 +58,19 @@ class OpinionForm(forms.ModelForm):
     class Meta:
         model = Opinions
         fields = ('date', 'contract', 'author', 'opinion_text')
+        # required = ('date', 'author', 'opinion_text') # не сработало
 
     def __init__(self, *args, **kwargs):
         if 'contracts' in kwargs:
             qs = kwargs.pop('contracts')
+        else:
+            qs = None
 
         super(OpinionForm, self).__init__(*args, **kwargs)
+
         try:
             self.fields['contract'].queryset = qs
+            self.fields['contract'].required = False
         except AttributeError:
             pass
 

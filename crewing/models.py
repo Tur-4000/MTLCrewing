@@ -122,7 +122,9 @@ class Opinions(models.Model):
     date = models.DateField(verbose_name='Дата отзыва')
     contract = models.ForeignKey(Contracts,
                                  on_delete=models.CASCADE,
-                                 verbose_name='Контракт')
+                                 verbose_name='Контракт',
+                                 blank=True,
+                                 null=True)
     author = models.CharField(max_length=64,
                               db_index=True,
                               blank=False,

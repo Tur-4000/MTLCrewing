@@ -13,7 +13,7 @@
       <p class="card-text">{{ opinion.opinion_text }}</p>
       <div class="row">
         <div class="col-6">
-          <p class="text-muted">{{ opinion.contract }}</p>
+          <p class="text-muted">{{ opinion.contract|default_if_none:"без контракта" }}</p>
         </div>
         <div class="col-6">
           <a href="{% url 'opinion_edit' seaman.id opinion.id %}" class="card-link float-right">
