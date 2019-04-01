@@ -10,6 +10,11 @@ User = get_user_model()
 def get_timestamp_path(instance, filename):
     return '{}{}'.format(datetime.now().timestamp(), splitext(filename)[1])
 
+def get_opinionfile_path(instance, filename):
+    return 'opinions/{}-{}{}'.format(splitext(filename)[0],
+                                     int(datetime.now().timestamp()),
+                                     splitext(filename)[1])
+
 
 class Ranks(models.Model):
     rank_title = models.CharField(max_length=64,
@@ -124,12 +129,18 @@ class Opinions(models.Model):
                                  on_delete=models.CASCADE,
                                  verbose_name='Контракт',
                                  blank=True,
-                                 null=True)
+                                 null=True,
+                                 default=None)
     author = models.CharField(max_length=64,
                               db_index=True,
                               blank=False,
                               verbose_name='Автор отзыва')
     opinion_text = models.TextField(verbose_name='Отзыв')
+    opinion_file = models.FileField(verbose_name='Файл',
+                                    upload_to=get_opinionfile_path,
+                                    blank=True,
+                                    null=True,
+                                    default=None)
 
     class Meta:
         verbose_name = 'Отзыв'

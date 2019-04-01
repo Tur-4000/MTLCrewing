@@ -142,7 +142,7 @@ def opinion_add(request, seaman_id):
     qs = Contracts.objects.filter(seaman=seaman_id).all()
 
     if request.method == 'POST':
-        form = OpinionForm(request.POST, contracts=qs)
+        form = OpinionForm(request.POST, request.FILES, contracts=qs)
         if form.is_valid():
             obj = form.save(commit=False)
             obj.seaman = seaman
@@ -162,7 +162,7 @@ def opinion_edit(request, seaman_id, opinion_id):
     qs = Contracts.objects.filter(seaman=seaman_id).all()
 
     if request.method == 'POST':
-        form = OpinionForm(request.POST, instance=opinion, contracts=qs)
+        form = OpinionForm(request.POST, request.FILES, instance=opinion, contracts=qs)
         if form.is_valid():
             form.save()
             return redirect('seamancard', seaman.id)
