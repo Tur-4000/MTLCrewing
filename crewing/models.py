@@ -10,6 +10,7 @@ User = get_user_model()
 def get_timestamp_path(instance, filename):
     return '{}{}'.format(datetime.now().timestamp(), splitext(filename)[1])
 
+
 def get_opinionfile_path(instance, filename):
     return 'opinions/{}-{}{}'.format(splitext(filename)[0],
                                      int(datetime.now().timestamp()),
