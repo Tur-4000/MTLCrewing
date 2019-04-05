@@ -11,12 +11,6 @@ def get_timestamp_path(instance, filename):
     return '{}{}'.format(datetime.now().timestamp(), splitext(filename)[1])
 
 
-def get_opinionfile_path(instance, filename):
-    return 'opinions/{}-{}{}'.format(splitext(filename)[0],
-                                     int(datetime.now().timestamp()),
-                                     splitext(filename)[1])
-
-
 class Ranks(models.Model):
     rank_title = models.CharField(max_length=64,
                                   db_index=True,
@@ -119,37 +113,6 @@ class Contracts(models.Model):
 
     def __str__(self):
         return f'{self.vessel} {self.sign_in_date}/{self.sign_off_date}'
-
-
-class Opinions(models.Model):
-    seaman = models.ForeignKey(Seamans,
-                               on_delete=models.CASCADE,
-                               verbose_name='Моряк')
-    date = models.DateField(verbose_name='Дата отзыва')
-    contract = models.ForeignKey(Contracts,
-                                 on_delete=models.CASCADE,
-                                 verbose_name='Контракт',
-                                 blank=True,
-                                 null=True,
-                                 default=None)
-    author = models.CharField(max_length=64,
-                              db_index=True,
-                              blank=False,
-                              verbose_name='Автор отзыва')
-    opinion_text = models.TextField(verbose_name='Отзыв')
-    opinion_file = models.FileField(verbose_name='Файл',
-                                    upload_to=get_opinionfile_path,
-                                    blank=True,
-                                    null=True,
-                                    default=None)
-
-    class Meta:
-        verbose_name = 'Отзыв'
-        verbose_name_plural = 'отзывы'
-        ordering = ['-date']
-
-    def __str__(self):
-        return f'{self.author}: {self.opinion_text}'
 
 
 class Seaman360Ability(models.Model):

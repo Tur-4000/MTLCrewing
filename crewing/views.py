@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .models import Seamans, Ranks, Vessels, Contracts, Opinions, \
+from .models import Seamans, Ranks, Vessels, Contracts, \
     Seaman360Question, Seaman360Ability, Seaman360Rating
-from .forms import SeamanForm, RankForm, VesselForm, OpinionForm, ContractForm,\
+from opinion.models import Opinion
+from .forms import SeamanForm, RankForm, VesselForm, ContractForm,\
     Seaman360QuestionForm, SeamanRatingForm
 from .utils import last_rank
 
@@ -16,7 +17,7 @@ def seamans_list(request):
 def seamancard(request, seaman_id):
     seaman = get_object_or_404(Seamans, id=seaman_id)
     contracts = Contracts.objects.filter(seaman=seaman_id).all()
-    opinions = Opinions.objects.filter(seaman=seaman_id).all()
+    opinions = Opinion.objects.filter(seaman=seaman_id).all()
 
     rank = get_object_or_404(Ranks, id=seaman.last_rank.id)
     abilities = rank.abilities.all()
@@ -136,42 +137,42 @@ def vessel_edit(request, vessel_id):
     return render(request, 'crewing/vessel.html', context)
 
 
-def opinion_add(request, seaman_id):
-    title = 'Добавить отзыв'
-    seaman = get_object_or_404(Seamans, id=seaman_id)
-    qs = Contracts.objects.filter(seaman=seaman_id).all()
+# def opinion_add(request, seaman_id):
+#     title = 'Добавить отзыв'
+#     seaman = get_object_or_404(Seamans, id=seaman_id)
+#     qs = Contracts.objects.filter(seaman=seaman_id).all()
+#
+#     if request.method == 'POST':
+#         form = OpinionForm(request.POST, request.FILES, contracts=qs)
+#         if form.is_valid():
+#             obj = form.save(commit=False)
+#             obj.seaman = seaman
+#             obj.save()
+#             return redirect('seamancard', seaman_id)
+#     else:
+#         form = OpinionForm(contracts=qs)
+#
+#     context = {'title': title, 'form': form, 'seaman': seaman}
+#     return render(request, 'crewing/opinion.html', context)
 
-    if request.method == 'POST':
-        form = OpinionForm(request.POST, request.FILES, contracts=qs)
-        if form.is_valid():
-            obj = form.save(commit=False)
-            obj.seaman = seaman
-            obj.save()
-            return redirect('seamancard', seaman_id)
-    else:
-        form = OpinionForm(contracts=qs)
 
-    context = {'title': title, 'form': form, 'seaman': seaman}
-    return render(request, 'crewing/opinion.html', context)
-
-
-def opinion_edit(request, seaman_id, opinion_id):
-    title = 'Редактировать отзыв'
-    seaman = get_object_or_404(Opinions, id=seaman_id)
-    opinion = get_object_or_404(Opinions, id=opinion_id)
-    qs = Contracts.objects.filter(seaman=seaman_id).all()
-
-    if request.method == 'POST':
-        form = OpinionForm(request.POST, request.FILES, instance=opinion, contracts=qs)
-        if form.is_valid():
-            form.save()
-            return redirect('seamancard', seaman.id)
-    else:
-        form = OpinionForm(instance=opinion, contracts=qs)
-
-    context = {'title': title, 'form': form,
-               'opinion': opinion, 'seaman': seaman}
-    return render(request, 'crewing/opinion.html', context)
+# def opinion_edit(request, seaman_id, opinion_id):
+#     title = 'Редактировать отзыв'
+#     seaman = get_object_or_404(Opinions, id=seaman_id)
+#     opinion = get_object_or_404(Opinions, id=opinion_id)
+#     qs = Contracts.objects.filter(seaman=seaman_id).all()
+#
+#     if request.method == 'POST':
+#         form = OpinionForm(request.POST, request.FILES, instance=opinion, contracts=qs)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('seamancard', seaman.id)
+#     else:
+#         form = OpinionForm(instance=opinion, contracts=qs)
+#
+#     context = {'title': title, 'form': form,
+#                'opinion': opinion, 'seaman': seaman}
+#     return render(request, 'crewing/opinion.html', context)
 
 
 def contract_add(request, seaman_id):

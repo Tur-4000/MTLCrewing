@@ -35,6 +35,7 @@ ALLOWED_HOSTS = ['127.0.0.1',
 INSTALLED_APPS = [
     'crewing',
     'user',
+    'opinion',
 
     'django.contrib.admin',
     'django.contrib.auth',
