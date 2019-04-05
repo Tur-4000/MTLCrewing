@@ -1,3 +1,6 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+# заглушка
+def test(request):
+    return render(request, 'scoring_360/test.html')

@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('crewing.urls')),
     path('opinion/', include('opinion.urls', namespace='opinion')),
+    path('scoring360/', include('scoring_360.urls', namespace='scoring_360')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL,
