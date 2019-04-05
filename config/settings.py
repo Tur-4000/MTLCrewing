@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'crewing',
     'user',
     'opinion',
+    'scoring_360',
 
     'django.contrib.admin',
     'django.contrib.auth',

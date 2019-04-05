@@ -11,6 +11,13 @@ def get_timestamp_path(instance, filename):
     return '{}{}'.format(datetime.now().timestamp(), splitext(filename)[1])
 
 
+# TODO: после перестройки миграций удалить
+def get_opinionfile_path(instance, filename):
+    return 'opinions/{}-{}{}'.format(splitext(filename)[0],
+                                     int(datetime.now().timestamp()),
+                                     splitext(filename)[1])
+
+
 class Ranks(models.Model):
     rank_title = models.CharField(max_length=64,
                                   db_index=True,
