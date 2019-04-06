@@ -138,44 +138,6 @@ def vessel_edit(request, vessel_id):
     return render(request, 'crewing/vessel.html', context)
 
 
-# def opinion_add(request, seaman_id):
-#     title = 'Добавить отзыв'
-#     seaman = get_object_or_404(Seamans, id=seaman_id)
-#     qs = Contracts.objects.filter(seaman=seaman_id).all()
-#
-#     if request.method == 'POST':
-#         form = OpinionForm(request.POST, request.FILES, contracts=qs)
-#         if form.is_valid():
-#             obj = form.save(commit=False)
-#             obj.seaman = seaman
-#             obj.save()
-#             return redirect('seamancard', seaman_id)
-#     else:
-#         form = OpinionForm(contracts=qs)
-#
-#     context = {'title': title, 'form': form, 'seaman': seaman}
-#     return render(request, 'crewing/opinion.html', context)
-
-
-# def opinion_edit(request, seaman_id, opinion_id):
-#     title = 'Редактировать отзыв'
-#     seaman = get_object_or_404(Opinions, id=seaman_id)
-#     opinion = get_object_or_404(Opinions, id=opinion_id)
-#     qs = Contracts.objects.filter(seaman=seaman_id).all()
-#
-#     if request.method == 'POST':
-#         form = OpinionForm(request.POST, request.FILES, instance=opinion, contracts=qs)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('seamancard', seaman.id)
-#     else:
-#         form = OpinionForm(instance=opinion, contracts=qs)
-#
-#     context = {'title': title, 'form': form,
-#                'opinion': opinion, 'seaman': seaman}
-#     return render(request, 'crewing/opinion.html', context)
-
-
 def contract_add(request, seaman_id):
     title = 'Добавить контракт'
     seaman = get_object_or_404(Seamans, id=seaman_id)
@@ -217,11 +179,11 @@ def contract_edit(request, seaman_id, contract_id):
     return render(request, 'crewing/contract.html', context)
 
 
-def seamans_questions_list(request):
-    title = 'Вопросы рейтинга 360 (моряки)'
-    questions = Seaman360Question.objects.all()
-    context = {'title': title, 'questions': questions}
-    return render(request, 'crewing/questions_seaman.html', context)
+# def seamans_questions_list(request):
+#     title = 'Вопросы рейтинга 360 (моряки)'
+#     questions = Seaman360Question.objects.all()
+#     context = {'title': title, 'questions': questions}
+#     return render(request, 'crewing/questions_seaman.html', context)
 
 
 def seamans_question_add(request):

@@ -18,9 +18,9 @@ urlpatterns = [
     path('vessel/list/', views.vessels_list, name='vessels_list'),
     path('vessel/add/', views.vessel_add, name='vessel_add'),
     path('vessel/edit/<int:vessel_id>/', views.vessel_edit, name='vessel_edit'),
-    path('seamans_questions/list/', views.seamans_questions_list, name='seamans_questions_list'),
-    path('seamans_question/add/', views.seamans_question_add, name='seamans_question_add'),
-    path('seamans_question/edit/<int:question_id>/', views.seaman_questuion_edit, name='seamans_question_edit'),
+    # path('seamans_questions/list/', views.seamans_questions_list, name='seamans_questions_list'),
+    # path('seamans_question/add/', views.seamans_question_add, name='seamans_question_add'),
+    # path('seamans_question/edit/<int:question_id>/', views.seaman_questuion_edit, name='seamans_question_edit'),
     path('seaman/<int:seaman_id>/rating/add/', views.seaman_rating_add, name='seaman_rating_add'),
 
 ]

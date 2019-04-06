@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Ability360, Question360, Scoring360SeamanAbility, Scoring360AbilitySum, RankAbilityQuestion360
+from .models import Ability360, Question360, Scoring360SeamanAbility, Scoring360AbilitySum
 from crewing.models import Ranks
 
 
@@ -10,7 +10,7 @@ class Ability360Admin(admin.ModelAdmin):
 
 
 class Question360InLine(admin.TabularInline):
-    model = Question360.rank.through
+    model = Question360.ranks.through
     extra = 1
 
 

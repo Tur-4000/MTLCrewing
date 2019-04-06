@@ -22,10 +22,9 @@ class Question360(models.Model):
                                 db_index=True,
                                 blank=False,
                                 verbose_name='Вопрос')
-    rank = models.ManyToManyField(Ranks,
-                                  through='RankAbilityQuestion360',
-                                  verbose_name='Должность',
-                                  related_name='question')
+    ranks = models.ManyToManyField(Ranks,
+                                   verbose_name='Должность',
+                                   related_name='question')
     ability = models.ForeignKey(Ability360,
                                 on_delete=models.CASCADE,
                                 verbose_name='Компетенция')
@@ -37,12 +36,6 @@ class Question360(models.Model):
 
     def __str__(self):
         return f'{self.question}'
-
-
-class RankAbilityQuestion360(models.Model):
-    rank = models.ForeignKey(Ranks, on_delete=models.CASCADE)
-    ability = models.ForeignKey(Ability360, on_delete=models.CASCADE)
-    question = models.ForeignKey(Question360, on_delete=models.CASCADE)
 
 
 class Scoring360SeamanAbility(models.Model):
