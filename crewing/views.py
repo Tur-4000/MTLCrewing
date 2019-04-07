@@ -1,10 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .models import Seamans, Ranks, Vessels, Contracts, \
-    Seaman360Question, Seaman360Ability, Seaman360Rating
+from .models import Seamans, Ranks, Vessels, Contracts
 from opinion.models import Opinion
-from .forms import SeamanForm, RankForm, VesselForm, ContractForm,\
-    Seaman360QuestionForm, SeamanRatingForm
+from .forms import SeamanForm, RankForm, VesselForm, ContractForm
 from .utils import last_rank
 
 
@@ -180,56 +178,3 @@ def contract_edit(request, seaman_id, contract_id):
 
     context = {'title': title, 'form': form, 'seaman': seaman}
     return render(request, 'crewing/contract.html', context)
-
-
-# def seamans_questions_list(request):
-#     title = 'Вопросы рейтинга 360 (моряки)'
-#     questions = Seaman360Question.objects.all()
-#     context = {'title': title, 'questions': questions}
-#     return render(request, 'crewing/questions_seaman.html', context)
-
-
-def seamans_question_add(request):
-    title = 'Добавить вопрос рейтинга 360 (моряки)'
-
-    if request.method == 'POST':
-        form = Seaman360QuestionForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('seamans_questions_list')
-    else:
-        form = Seaman360QuestionForm()
-
-    context = {'title': title, 'form': form}
-    return render(request, 'crewing/question.html', context)
-
-
-def seaman_questuion_edit(request, question_id):
-    title = 'Редактировать вопрос рейтинга 360 (моряки)'
-    question = get_object_or_404(Seaman360Question, id=question_id)
-    if request.method == 'POST':
-        form = Seaman360QuestionForm(request.POST, instance=question)
-        if form.is_valid():
-            form.save()
-            return redirect('seamans_questions_list')
-    else:
-        form = Seaman360QuestionForm(instance=question)
-
-    context = {'title': title, 'form': form}
-    return render(request, 'crewing/question.html', context)
-
-
-def seaman_rating_add(request, seaman_id):
-    title = 'Добавить рейтинг 360'
-    seaman = get_object_or_404(Seamans, id=seaman_id)
-
-    if request.method == 'POST':
-        form = SeamanRatingForm(request.POST)
-        if form.is_valid():
-            form.save()
-    else:
-        form = SeamanRatingForm()
-
-    context = {'title': title, 'seaman': seaman, 'form': form}
-    return render(request, 'crewing/seaman_rating_add.html', context)
-
