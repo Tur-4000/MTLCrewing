@@ -25,7 +25,7 @@ def seamancard(request, seaman_id):
 
     if seaman.last_rank:
         rank = get_object_or_404(Ranks, id=seaman.last_rank.id)
-        obj = Question360.objects.filter(ranks=rank).select_related('ability')
+        obj = Question360.objects.filter(ranks=rank).prefetch_related('ability')
         ability = []
         for item in obj:
             ability.append(item.ability)
