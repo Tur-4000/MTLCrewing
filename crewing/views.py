@@ -2,8 +2,11 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 from .models import Seamans, Ranks, Vessels, Contracts
 from opinion.models import Opinion
+from scoring_360.models import Question360
 from .forms import SeamanForm, RankForm, VesselForm, ContractForm
 from .utils import last_rank
+
+
 
 
 def seamans_list(request):
@@ -22,8 +25,12 @@ def seamancard(request, seaman_id):
 
     if seaman.last_rank:
         rank = get_object_or_404(Ranks, id=seaman.last_rank.id)
-
-        abilities = rank.abilities.all()
+        obj = Question360.objects.filter(ranks=rank).select_related('ability')
+        ability = []
+        for item in obj:
+            ability.append(item.ability)
+        abilities = set(ability)
+        # abilities = rank.abilities.all()
         context['abilities'] = abilities
 
     return render(request, 'crewing/seamancard.html', context)

@@ -8,7 +8,9 @@ class Question360Form(forms.ModelForm):
 
     class Meta:
         model = Question360
-        fields = ('question', 'ranks', 'ability')
+        fields = ('question',
+                  'ranks',
+                  'ability')
         widgets = {
             'question': forms.TextInput(),
             'ranks': forms.CheckboxSelectMultiple(),
