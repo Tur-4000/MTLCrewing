@@ -4,6 +4,8 @@ from os.path import splitext
 from django.db import models
 from django.contrib.auth import get_user_model
 
+# from scoring_360.models import Ability360, Question360
+
 User = get_user_model()
 
 
@@ -23,6 +25,12 @@ class Ranks(models.Model):
                                   db_index=True,
                                   blank=False,
                                   verbose_name='Должность')
+    # abilities = models.ManyToManyField(Ability360,
+    #                                    related_name='ranks',
+    #                                    verbose_name='Компетенции')
+    # questions = models.ManyToManyField(Question360,
+    #                                    related_name='ranks',
+    #                                    verbose_name='Вопросы')
 
     class Meta:
         verbose_name = 'Должность'
