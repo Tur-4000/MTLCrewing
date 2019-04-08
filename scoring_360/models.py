@@ -8,10 +8,10 @@ class Ability360(models.Model):
                                db_index=True,
                                blank=False,
                                verbose_name='Компетенция')
-    # ranks = models.ManyToManyField(Ranks,
-    #                                through='RankAbilityQuestion',
-    #                                verbose_name='Должность',
-    #                                related_name='abilities')
+    ranks = models.ManyToManyField(Ranks,
+                                   # through='RankAbilityQuestion',
+                                   verbose_name='Должность',
+                                   related_name='abilities')
 
     class Meta:
         verbose_name = 'Компетенция'

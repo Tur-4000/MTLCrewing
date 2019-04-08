@@ -27,6 +27,7 @@ class Ranks(models.Model):
     class Meta:
         verbose_name = 'Должность'
         verbose_name_plural = 'Должности'
+        ordering = ['id', 'rank_title']
 
     def __str__(self):
         return f'{self.rank_title}'
