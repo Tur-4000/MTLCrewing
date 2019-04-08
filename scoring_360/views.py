@@ -69,3 +69,9 @@ def question360_edit(request, question_id):
 
     context = {'title': title, 'form': form}
     return render(request, 'scoring_360/question.html', context)
+
+
+def scoring_360_add(request):
+    title = 'Добавить результаты анкетирования'
+    context = {'title': title}
+    return render(request, 'scoring_360/scoring_add.html', context)

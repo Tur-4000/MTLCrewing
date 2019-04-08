@@ -53,40 +53,40 @@ class RankAbilityQuestion(models.Model):
         unique_together = ['rank', 'ability', 'question']
 
 
-# class Scoring360SeamanAbility(models.Model):
-#     date = models.DateTimeField(verbose_name='Метка времени',
-#                                 db_index=True,
-#                                 blank=False)
-#     seaman = models.ForeignKey(Seamans,
-#                                on_delete=models.CASCADE,
-#                                verbose_name='Оцениваемый моряк',
-#                                db_index=True,
-#                                blank=False,
-#                                related_name='appraise_to')
-#     appraiser = models.ForeignKey(Seamans,
-#                                   on_delete=models.CASCADE,
-#                                   verbose_name='Кто оценивал',
-#                                   related_name='appraise_from')
-#     ability = models.ForeignKey(Ability360,
-#                                 on_delete=models.CASCADE,
-#                                 verbose_name='Компетенция')
-#     ability_value = models.DecimalField(verbose_name='Оценка',
-#                                         db_index=True,
-#                                         max_digits=2,
-#                                         decimal_places=1,
-#                                         blank=True,
-#                                         null=True,
-#                                         default=None)
-#
-#     class Meta:
-#         verbose_name = 'Оценка 360'
-#         verbose_name_plural = 'Оценки 360'
-#         ordering = ['seaman', 'date']
-#
-#     def __str__(self):
-#         return f'{self.seaman}: {self.date}'
-#
-#
+class Scoring360SeamanAbility(models.Model):
+    date = models.DateTimeField(verbose_name='Метка времени',
+                                db_index=True,
+                                blank=False)
+    seaman = models.ForeignKey(Seamans,
+                               on_delete=models.CASCADE,
+                               verbose_name='Оцениваемый моряк',
+                               db_index=True,
+                               blank=False,
+                               related_name='appraise_to')
+    appraiser = models.ForeignKey(Seamans,
+                                  on_delete=models.CASCADE,
+                                  verbose_name='Кто оценивал',
+                                  related_name='appraise_from')
+    ability = models.ForeignKey(Ability360,
+                                on_delete=models.CASCADE,
+                                verbose_name='Компетенция')
+    ability_value = models.DecimalField(verbose_name='Оценка',
+                                        db_index=True,
+                                        max_digits=2,
+                                        decimal_places=1,
+                                        blank=True,
+                                        null=True,
+                                        default=None)
+
+    class Meta:
+        verbose_name = 'Оценка 360'
+        verbose_name_plural = 'Оценки 360'
+        ordering = ['seaman', 'date']
+
+    def __str__(self):
+        return f'{self.seaman}: {self.date}'
+
+
 # class Scoring360AbilitySum(models.Model):
 #     seaman = models.ForeignKey(Seamans,
 #                                on_delete=models.CASCADE,

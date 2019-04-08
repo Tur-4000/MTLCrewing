@@ -1,7 +1,7 @@
 from django import forms
 from django.core import validators
 
-from .models import Question360, Ability360
+from .models import Question360, Ability360, Scoring360SeamanAbility
 from crewing.models import Ranks
 
 
@@ -18,3 +18,7 @@ class Question360Form(forms.ModelForm):
     class Meta:
         model = Question360
         fields = ('question', 'ability', 'ranks')
+
+
+# class Scoring360Form(forms.ModelForm):
+#
