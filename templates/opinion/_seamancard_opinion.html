@@ -1,5 +1,5 @@
 <p class="mt-3">
-  <a href="{% url 'opinion_add' seaman.id %}" class="btn btn-sm btn-outline-success">
+  <a href="{% url 'opinion:opinion_add' seaman.id %}" class="btn btn-sm btn-outline-success">
     <span class="icon icon-plus-squared" aria-hidden="true"></span>
     Добавить отзыв</a>
 </p>
@@ -21,7 +21,7 @@
           <p class="text-muted">{{ opinion.contract|default_if_none:"без контракта" }}</p>
         </div>
         <div class="col-6">
-          <a href="{% url 'opinion_edit' seaman.id opinion.id %}" class="card-link float-right">
+          <a href="{% url 'opinion:opinion_edit' seaman.id opinion.id %}" class="card-link float-right">
             <span class="icon icon-pencil"></span> Редактировать</a>
         </div>
       </div>

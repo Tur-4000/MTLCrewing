@@ -4,6 +4,8 @@ from os.path import splitext
 from django.db import models
 from django.contrib.auth import get_user_model
 
+# from scoring_360.models import Ability360, Question360
+
 User = get_user_model()
 
 
@@ -11,6 +13,7 @@ def get_timestamp_path(instance, filename):
     return '{}{}'.format(datetime.now().timestamp(), splitext(filename)[1])
 
 
+# TODO: после перестройки миграций удалить
 def get_opinionfile_path(instance, filename):
     return 'opinions/{}-{}{}'.format(splitext(filename)[0],
                                      int(datetime.now().timestamp()),
@@ -22,10 +25,17 @@ class Ranks(models.Model):
                                   db_index=True,
                                   blank=False,
                                   verbose_name='Должность')
+    # abilities = models.ManyToManyField(Ability360,
+    #                                    related_name='ranks',
+    #                                    verbose_name='Компетенции')
+    # questions = models.ManyToManyField(Question360,
+    #                                    related_name='ranks',
+    #                                    verbose_name='Вопросы')
 
     class Meta:
         verbose_name = 'Должность'
         verbose_name_plural = 'Должности'
+        ordering = ['id', 'rank_title']
 
     def __str__(self):
         return f'{self.rank_title}'
@@ -119,179 +129,3 @@ class Contracts(models.Model):
 
     def __str__(self):
         return f'{self.vessel} {self.sign_in_date}/{self.sign_off_date}'
-
-
-class Opinions(models.Model):
-    seaman = models.ForeignKey(Seamans,
-                               on_delete=models.CASCADE,
-                               verbose_name='Моряк')
-    date = models.DateField(verbose_name='Дата отзыва')
-    contract = models.ForeignKey(Contracts,
-                                 on_delete=models.CASCADE,
-                                 verbose_name='Контракт',
-                                 blank=True,
-                                 null=True,
-                                 default=None)
-    author = models.CharField(max_length=64,
-                              db_index=True,
-                              blank=False,
-                              verbose_name='Автор отзыва')
-    opinion_text = models.TextField(verbose_name='Отзыв')
-    opinion_file = models.FileField(verbose_name='Файл',
-                                    upload_to=get_opinionfile_path,
-                                    blank=True,
-                                    null=True,
-                                    default=None)
-
-    class Meta:
-        verbose_name = 'Отзыв'
-        verbose_name_plural = 'отзывы'
-        ordering = ['-date']
-
-    def __str__(self):
-        return f'{self.author}: {self.opinion_text}'
-
-
-class Seaman360Ability(models.Model):
-    ability = models.CharField(max_length=32,
-                               db_index=True,
-                               blank=False,
-                               verbose_name='Компетенция')
-    ranks = models.ManyToManyField(Ranks, related_name='abilities')
-
-    class Meta:
-        verbose_name = 'Компетенция'
-        verbose_name_plural = 'Компетенции'
-
-    def __str__(self):
-        return f'{self.ability}'
-
-
-class Seaman360Question(models.Model):
-    # ABILITIES = (
-    #     (1, 'Организаторские способности'),
-    #     (2, 'Дисциплинированность'),
-    #     (3, 'Старательность'),
-    #     (4, 'Работа в команде'),
-    #     (5, 'Работоспособность'),
-    #     (6, 'Ответственность'),
-    #     (7, 'Стрессоустойчивость'),
-    #     (8, 'Лидерство'),
-    #     (9, 'Уверенность в себе'),
-    #     (10, 'Трудолюбие'),
-    # )
-    question = models.CharField(max_length=128,
-                                db_index=True,
-                                blank=False,
-                                verbose_name='Вопрос')
-    rank = models.ManyToManyField(Ranks,
-                                  verbose_name='Должность',
-                                  related_name='Компетенции')
-    # ability = models.PositiveSmallIntegerField(choices=ABILITIES,
-    #                                            db_index=True,
-    #                                            blank=False,
-    #                                            verbose_name='Компетенция')
-    ability = models.ForeignKey(Seaman360Ability,
-                                on_delete=models.CASCADE,
-                                verbose_name='Компетенция')
-
-    class Meta:
-        verbose_name = 'Вопрос'
-        verbose_name_plural = 'Вопросы'
-        ordering = ['ability', 'question']
-
-    def __str__(self):
-        return f'{self.question}'
-
-
-class Seaman360Rating(models.Model):
-    seaman = models.ForeignKey(Seamans,
-                               on_delete=models.CASCADE,
-                               verbose_name='Оцениваемый моряк',
-                               db_index=True,
-                               blank=False,
-                               related_name='rates_to')
-    date = models.DateTimeField(verbose_name='Метка времени',
-                                db_index=True,
-                                blank=False)
-    appraiser = models.ForeignKey(Seamans,
-                                  on_delete=models.CASCADE,
-                                  verbose_name='Кто оценивал',
-                                  related_name='rates_from')
-    ability1 = models.DecimalField(verbose_name='Организаторские способности',
-                                   db_index=True,
-                                   max_digits=2,
-                                   decimal_places=1,
-                                   blank=True,
-                                   null=True,
-                                   default=None)
-    ability2 = models.DecimalField(verbose_name='Дисциплинированность',
-                                   db_index=True,
-                                   max_digits=2,
-                                   decimal_places=1,
-                                   blank=True,
-                                   null=True,
-                                   default=None)
-    ability3 = models.DecimalField(verbose_name='Старательность',
-                                   db_index=True,
-                                   max_digits=2,
-                                   decimal_places=1,
-                                   blank=True,
-                                   null=True,
-                                   default=None)
-    ability4 = models.DecimalField(verbose_name='Работа в команде',
-                                   db_index=True,
-                                   max_digits=2,
-                                   decimal_places=1,
-                                   blank=True,
-                                   null=True,
-                                   default=None)
-    ability5 = models.DecimalField(verbose_name='Работоспособность',
-                                   db_index=True,
-                                   max_digits=2,
-                                   decimal_places=1,
-                                   blank=True,
-                                   null=True,
-                                   default=None)
-    ability6 = models.DecimalField(verbose_name='Ответственность',
-                                   db_index=True,
-                                   max_digits=2,
-                                   decimal_places=1,
-                                   blank=True,
-                                   null=True,
-                                   default=None)
-    ability7 = models.DecimalField(verbose_name='Стрессоустойчивость',
-                                   db_index=True,
-                                   max_digits=2,
-                                   decimal_places=1,
-                                   blank=True,
-                                   null=True,
-                                   default=None)
-    ability8 = models.DecimalField(verbose_name='Лидерство',
-                                   db_index=True,
-                                   max_digits=2,
-                                   decimal_places=1,
-                                   blank=True,
-                                   null=True,
-                                   default=None)
-    ability9 = models.DecimalField(verbose_name='Уверенность в себе',
-                                   db_index=True,
-                                   max_digits=2,
-                                   decimal_places=1,
-                                   blank=True,
-                                   null=True,
-                                   default=None)
-    ability10 = models.DecimalField(verbose_name='Трудолюбие',
-                                    db_index=True,
-                                    max_digits=2,
-                                    decimal_places=1,
-                                    blank=True,
-                                    null=True,
-                                    default=None)
-
-    class Meta:
-        verbose_name = 'Рейтинг 360 (моряки)'
-        verbose_name_plural = 'Рейтинги 360 (моряки)'
-
-    def __str__(self):
-        return f'{self.seaman}: {self.date}'
