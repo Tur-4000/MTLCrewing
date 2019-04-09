@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import modelformset_factory
 from django.core import validators
 
 from .models import Question360, Ability360, Scoring360SeamanAbility
@@ -20,5 +21,12 @@ class Question360Form(forms.ModelForm):
         fields = ('question', 'ability', 'ranks')
 
 
-# class Scoring360Form(forms.ModelForm):
-#
+class Scoring360Form(forms.ModelForm):
+
+    class Meta:
+        model = Scoring360SeamanAbility
+        fields = ('date', 'appraiser')
+
+
+Scoring360FormSet = modelformset_factory(Scoring360SeamanAbility,
+                                         fields=('ability', 'ability_value'))
