@@ -5,7 +5,8 @@ from .models import Seamans, Vessels, Contracts, Ranks, Officer
 
 @admin.register(Officer)
 class OfficerAdmin(admin.ModelAdmin):
-    fields = ('last_name_ru', 'first_name_ru', 'rank',)
+    list_display = ('last_name_ru', 'first_name_ru', 'rank',)
+    list_filter = ('rank',)
 
 
 admin.site.register(Seamans)
