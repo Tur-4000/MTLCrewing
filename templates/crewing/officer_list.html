@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+  <h3>{{ title }}</h3>
+
+  <a href="{% url 'officer_add' %}" class="btn btn-sm btn-outline-success mb-2">
+    <span class="icon icon-user-add"></span>
+    Добавить сотрудникаа</a>
+
+  <table class="table table-sm">
+    <thead>
+    <tr>
+      <th></th>
+      <th>Ф.И.О. (EN, RU, UA)</th>
+      <th>Должность</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for officer in officers %}
+
+      <tr>
+        <td>
+          <a href="{% url 'officer_edit' officer.id %}"><span class="icon icon-pencil"></span></a>
+        </td>
+        <td>
+          <a href="">
+            {{ officer.last_name_ru }} {{ officer.first_name_ru }}
+          </a>
+        </td>
+        <td>{{ officer.rank|default_if_none:'' }}</td>
+      </tr>
+
+    {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

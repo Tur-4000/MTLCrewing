@@ -1,7 +1,7 @@
 from django import forms
 from django.core import validators
 
-from .models import Seamans, Ranks, Vessels, Contracts
+from .models import Seamans, Ranks, Vessels, Contracts, Officer
 
 
 class SeamanForm(forms.ModelForm):
@@ -26,11 +26,31 @@ class SeamanForm(forms.ModelForm):
                   'foto')
 
 
+class OfficerForm(forms.ModelForm):
+    foto = forms.ImageField(label='Фото',
+                            validators=[validators.FileExtensionValidator(
+                                allowed_extensions=('jpg', 'png'))],
+                            error_messages={'invalid_extension': 'Этот формат '
+                                            + 'файлов не поддерживается'},
+                            required=False)
+    last_name_ru = forms.TextInput()
+    first_name_ru = forms.TextInput()
+    rank = forms.ModelChoiceField(
+        queryset=Ranks.objects.filter(is_officer=True),
+        label='Должность',
+        widget=forms.Select)
+
+    class Meta:
+        model = Officer
+        fields = ('last_name_ru', 'first_name_ru',
+                  'rank', 'foto')
+
+
 class RankForm(forms.ModelForm):
 
     class Meta:
         model = Ranks
-        fields = ('rank_title',)
+        fields = ('rank_title', 'is_officer')
         widgets = {
             'rank_title': forms.TextInput(),
         }
@@ -50,7 +70,10 @@ class VesselForm(forms.ModelForm):
 
 class ContractForm(forms.ModelForm):
     vessel = forms.Select()
-    rank = forms.Select()
+    rank = forms.ModelChoiceField(
+                queryset=Ranks.objects.filter(is_officer=False),
+                label='Должность',
+                widget=forms.Select)
     sign_in_date = forms.TextInput()
     sign_off_date = forms.TextInput()
 

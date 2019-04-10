@@ -14,7 +14,7 @@
       </div>
       <div class="col-md-3">
           <p>UA</p>
-          <h3>{{ seaman.last_name_ua }} {{ seaman.first_name_ua }}</h3>
+          <h3>{{ seaman.last_name_ua|default_if_none:'' }} {{ seaman.first_name_ua|default_if_none:'' }}</h3>
       </div>
     </div>
     <hr>

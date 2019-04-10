@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .models import Seamans, Ranks, Vessels, Contracts
+from .models import Seamans, Ranks, Vessels, Contracts, Officer
 from opinion.models import Opinion
-from scoring_360.models import Question360, Ability360
-from .forms import SeamanForm, RankForm, VesselForm, ContractForm
+from .forms import SeamanForm, RankForm, VesselForm, ContractForm, OfficerForm
 from .utils import last_rank
 
 
@@ -184,3 +183,47 @@ def contract_edit(request, seaman_id, contract_id):
 
     context = {'title': title, 'form': form, 'seaman': seaman}
     return render(request, 'crewing/contract.html', context)
+
+
+def officer_list(request):
+    title = 'Справочник сотрудников офиса'
+    officers = Officer.objects.all()
+    context = {'title': title, 'officers': officers}
+    return render(request, 'crewing/officer_list.html', context)
+
+
+def officer_add(request):
+    title = 'Добавить сотрудника'
+
+    if request.method == 'POST':
+        form = OfficerForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('officer_list')
+        else:
+            context = {'title': title, 'form': form}
+            render(request, 'crewing/officer.html', context)
+    else:
+        form = OfficerForm()
+
+    context = {'title': title, 'form': form}
+    return render(request, 'crewing/officer.html', context)
+
+
+def officer_edit(request, officer_id):
+    title = 'Редактировать сотрудника'
+    officer = get_object_or_404(Officer, id=officer_id)
+
+    if request.method == 'POST':
+        form = OfficerForm(request.POST, instance=officer)
+        if form.is_valid():
+            form.save()
+            return redirect('officer_list')
+        else:
+            context = {'title': title, 'form': form}
+            render(request, 'crewing/officer.html', context)
+    else:
+        form = OfficerForm(instance=officer)
+
+    context = {'title': title, 'form': form}
+    return render(request, 'crewing/officer.html', context)

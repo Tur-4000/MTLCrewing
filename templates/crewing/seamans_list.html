@@ -18,7 +18,7 @@
       <th></th>
       <th></th>
       <th>Ф.И.О. (EN, RU, UA)</th>
-      <th></th>
+      <th>Должность в последнем/текущем контракте</th>
     </tr>
     </thead>
     <tbody>
@@ -39,10 +39,10 @@
           <a href="{% url 'seamancard' seaman.id %}">
             {{ seaman.last_name_ru }} {{ seaman.first_name_ru }}<br>
             {{ seaman.last_name_en }} {{ seaman.first_name_en }}<br>
-            {{ seaman.last_name_ua }} {{ seaman.first_name_ua }}
+            {{ seaman.last_name_ua|default_if_none:'' }} {{ seaman.first_name_ua|default_if_none:'' }}
           </a>
         </td>
-        <td></td>
+        <td>{{ seaman.last_rank|default_if_none:'' }}</td>
       </tr>
 
     {% endfor %}

@@ -43,6 +43,7 @@
             Справочники
           </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="{% url 'officer_list' %}"><span class="icon icon-users"></span> Сотрудники офиса</a>
             <a class="dropdown-item" href="{% url 'rank_list' %}">Справочник должностей</a>
             <a class="dropdown-item" href="{% url 'vessels_list' %}">Справочник судов</a>
             <a class="dropdown-item" href="{% url 'scoring_360:questions360_list' %}">Вопросы 360&deg;</a>

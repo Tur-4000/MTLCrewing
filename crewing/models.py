@@ -25,6 +25,9 @@ class Ranks(models.Model):
                                   db_index=True,
                                   blank=False,
                                   verbose_name='Должность')
+    is_officer = models.BooleanField(default=False,
+                                     db_index=True,
+                                     verbose_name='Офисная должность')
     # abilities = models.ManyToManyField(Ability360,
     #                                    related_name='ranks',
     #                                    verbose_name='Компетенции')
@@ -41,15 +44,7 @@ class Ranks(models.Model):
         return f'{self.rank_title}'
 
 
-class Seamans(models.Model):
-    last_name_en = models.CharField(max_length=128,
-                                    db_index=True,
-                                    blank=False,
-                                    verbose_name='Фамилия (EN)')
-    first_name_en = models.CharField(max_length=128,
-                                     db_index=True,
-                                     blank=False,
-                                     verbose_name='Имя (EN)')
+class Person(models.Model):
     last_name_ru = models.CharField(max_length=128,
                                     db_index=True,
                                     blank=False,
@@ -58,6 +53,24 @@ class Seamans(models.Model):
                                      db_index=True,
                                      blank=False,
                                      verbose_name='Имя (RU)')
+
+    class Meta:
+        verbose_name = 'Сотрудник'
+        verbose_name_plural = 'Сотрудники'
+
+    def __str__(self):
+        return f'{self.last_name_ru} {self.first_name_ru}'
+
+
+class Seamans(Person, models.Model):
+    last_name_en = models.CharField(max_length=128,
+                                    db_index=True,
+                                    blank=False,
+                                    verbose_name='Фамилия (EN)')
+    first_name_en = models.CharField(max_length=128,
+                                     db_index=True,
+                                     blank=False,
+                                     verbose_name='Имя (EN)')
     last_name_ua = models.CharField(max_length=128,
                                     db_index=True,
                                     blank=True,
@@ -81,6 +94,19 @@ class Seamans(models.Model):
     class Meta:
         verbose_name = 'Моряк'
         verbose_name_plural = 'Моряки'
+
+    def __str__(self):
+        return f'{self.last_name_ru} {self.first_name_ru}'
+
+
+class Officer(Person, models.Model):
+    rank = models.ForeignKey(Ranks,
+                             on_delete=models.PROTECT,
+                             verbose_name='Должность')
+
+    class Meta:
+        verbose_name = 'Офисный работник'
+        verbose_name_plural = 'Офисные работники'
 
     def __str__(self):
         return f'{self.last_name_ru} {self.first_name_ru}'
